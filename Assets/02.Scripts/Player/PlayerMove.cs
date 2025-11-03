@@ -14,6 +14,11 @@ public class PlayerMove : MonoBehaviour
 
     public float Speed = 3;
 
+    public float MinX = -2;
+    public float MaxX =  2;
+    public float MinY = -5;
+    public float MaxY =  0;
+
 
     //게임 오브젝트가 게임을 시작할 때
     void Start()
@@ -39,10 +44,14 @@ public class PlayerMove : MonoBehaviour
         // 3. 그 방향으로 이동한다.
         Vector2 position = this.transform.position; // 현재 위치
 
+        Vector2 distance = direction * Speed * Time.deltaTime;
+
         // 새로운 위치 = 현재 위치 + (방향 * 속력) * 시간
         // 새로운 위치 = 현재 위치 + 속도 * 시간;
         //      새로운 위치 = 현재 위치 + 방향     * 속력
-        Vector2 newPosition = position + direction * Speed * Time.deltaTime; // 새로운 위치
+        //Vector2 newPosition = position + direction * Speed * Time.deltaTime; // 새로운 위치
+
+        Vector2 newPosition = position + distance; // 새로운 위치
 
         // Time.deltaTime : 이전 프레임으로부터 현재 프레임까지 시간이 얼마나 흘렀는지를 나타내는 값
         //                  1초 / fps 값과 비슷하다.
@@ -50,6 +59,25 @@ public class PlayerMove : MonoBehaviour
         // 이동속도 : 10
         // 컴퓨터1  : 50FPS : Update   -> 초당 50번 실행    -> 10 * 50 = 500    * Time.deltaTime 
         // 컴퓨터2  : 100FPS : Update  -> 초당 100번 실행  -> 10 * 100 = 1000  * Time.deltaTime => 두개의 값이 같아진다.
+        //1, -1, 0 이 숫자 3개 말고는 다 매직넘버이므로 변수로 빼야된다.
+
+        // 1-1, 포지션 값에 제한을 둔다.
+        if (newPosition.x < MinX)
+        {
+            newPosition.x = MinX;
+        }
+        else if (newPosition.x > MaxX)
+        {
+            newPosition.x = MaxX;
+        }
+        else if (newPosition.y < MinY)
+        {
+            newPosition.y = MinY;
+        }
+        else if (newPosition.y > MaxY)
+        {
+            newPosition.y = MaxY;
+        }
 
         transform.position = newPosition;                   // 새로운 위치로 갱신
     }
