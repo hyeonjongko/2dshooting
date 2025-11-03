@@ -12,13 +12,19 @@ public class PlayerMove : MonoBehaviour
     // 2. 방향 구하는 방법
     // 3. 이동
 
+    [Header("능력치")]
     public float Speed = 3;
 
+    [Header("이동범위")]
     public float MinX = -2;
     public float MaxX =  2;
     public float MinY = -5;
     public float MaxY =  0;
 
+    public float LeftEnd = (float)-2.9;
+    public float RightEnd = (float)2.9;
+    public float TopEnd = (float)0.5;
+    public float BottomEnd = (float)-5.5;
 
     //게임 오브젝트가 게임을 시작할 때
     void Start()
@@ -62,21 +68,38 @@ public class PlayerMove : MonoBehaviour
         //1, -1, 0 이 숫자 3개 말고는 다 매직넘버이므로 변수로 빼야된다.
 
         // 1-1, 포지션 값에 제한을 둔다.
-        if (newPosition.x < MinX)
+        //if (newPosition.x < MinX)
+        //{
+        //    newPosition.x = MinX;
+        //}
+        //else if (newPosition.x > MaxX)
+        //{
+        //    newPosition.x = MaxX;
+        //}
+        //else if (newPosition.y < MinY)
+        //{
+        //    newPosition.y = MinY;
+        //}
+        //else if (newPosition.y > MaxY)
+        //{
+        //    newPosition.y = MaxY;
+        //}
+
+        if(newPosition.x < LeftEnd)
         {
-            newPosition.x = MinX;
+            newPosition.x = RightEnd;
         }
-        else if (newPosition.x > MaxX)
+        else if(newPosition.x > RightEnd)
         {
-            newPosition.x = MaxX;
+            newPosition.x = LeftEnd;
         }
-        else if (newPosition.y < MinY)
+        if(newPosition.y > TopEnd)
         {
-            newPosition.y = MinY;
+            newPosition.y = BottomEnd;
         }
-        else if (newPosition.y > MaxY)
+        else if(newPosition.y < BottomEnd)
         {
-            newPosition.y = MaxY;
+            newPosition.y = TopEnd;
         }
 
         transform.position = newPosition;                   // 새로운 위치로 갱신
