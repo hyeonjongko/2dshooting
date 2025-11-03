@@ -62,13 +62,26 @@ public class PlayerMove : MonoBehaviour
 
         Debug.Log($"direction : {direction.x},{direction.y}");
 
+
         // 3. 그 방향으로 이동한다.
         Vector2 position = this.transform.position; // 현재 위치
 
+
+        //실습 4번 : Shift키를 누르는 중에 이동속도가 1.2배 빨라지게
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Speed = Speed * Run;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            Speed = Speed / Run;
+        }
+
         Vector2 distance = direction * Speed * Time.deltaTime;
 
+
         //Translate 버전
-        transform.Translate(distance);
+        //transform.Translate(distance);
 
         // 새로운 위치 = 현재 위치 + (방향 * 속력) * 시간
         // 새로운 위치 = 현재 위치 + 속도 * 시간;
