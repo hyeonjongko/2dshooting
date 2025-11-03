@@ -85,7 +85,18 @@ public class PlayerMove : MonoBehaviour
         //    newPosition.y = MaxY;
         //}
 
-        if(newPosition.x < LeftEnd)
+        // 2. 스피드 조작
+        if(Input.GetKey("q"))
+        {
+            Speed += 1;
+        }
+        else if(Input.GetKey("e"))
+        {
+            Speed -= 1;
+        }
+
+        // 3. 양쪽 끝으로 가면 반대쪽 끝에서 다시 나오게
+        if (newPosition.x < LeftEnd)
         {
             newPosition.x = RightEnd;
         }
