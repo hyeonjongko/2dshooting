@@ -37,14 +37,23 @@ public class PlayerMove : MonoBehaviour
     {
         // 1. 키보드 입력을 감지한다.
         // 유니티에서는 Input이라고 하는 모듈이 입력에 관한 모든 것을 담당한다
-        float h = Input.GetAxis("Horizontal");    // 수평 입력에 대한 값을 -1,0,1로 가져온다
-        float v = Input.GetAxis("Vertical");      // 수직 입력에 대한 값을 -1,0,1로 가져온다
+        //float h = Input.GetAxis("Horizontal");    // 수평 입력에 대한 값을 -1 ~ 1로 가져온다
+        //float v = Input.GetAxis("Vertical");      // 수직 입력에 대한 값을 -1 ~ 1로 가져온다
+
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        //GetAxisRaw : -1, 0, 1의 값을 반환
 
         Debug.Log($"h : {h}, v: {v}");
 
         // 2. 입력으로부터 방향을 구한다.
         // 벡터 : 크기와 방향을 표현하는 물리 개념
         Vector2 direction = new Vector2(h, v);
+
+        // 방향을 크기 1로 만드는 정규화를 한다.
+        direction.Normalize();
+        //direction = direction.normalized; // 방법은 위와 아래의 방법 2가지가 있다.
+
         Debug.Log($"direction : {direction.x},{direction.y}");
 
         // 3. 그 방향으로 이동한다.
