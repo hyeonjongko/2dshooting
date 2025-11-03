@@ -21,10 +21,16 @@ public class PlayerMove : MonoBehaviour
     public float MinY = -5;
     public float MaxY =  0;
 
-    public float LeftEnd = (float)-2.9;
-    public float RightEnd = (float)2.9;
-    public float TopEnd = (float)0.5;
-    public float BottomEnd = (float)-5.5;
+    public float LeftEnd =   -2.9f;
+    public float RightEnd =  2.9f;
+    public float TopEnd =    0.5f;
+    public float BottomEnd = -5.5f;
+
+    [Header("속도")]
+    public float MaxSpeed = 10;
+    public float MinSpeed = 1;
+
+    public float Run = 1.2f;
 
     //게임 오브젝트가 게임을 시작할 때
     void Start()
@@ -61,6 +67,9 @@ public class PlayerMove : MonoBehaviour
 
         Vector2 distance = direction * Speed * Time.deltaTime;
 
+        //Translate 버전
+        transform.Translate(distance);
+
         // 새로운 위치 = 현재 위치 + (방향 * 속력) * 시간
         // 새로운 위치 = 현재 위치 + 속도 * 시간;
         //      새로운 위치 = 현재 위치 + 방향     * 속력
@@ -76,7 +85,7 @@ public class PlayerMove : MonoBehaviour
         // 컴퓨터2  : 100FPS : Update  -> 초당 100번 실행  -> 10 * 100 = 1000  * Time.deltaTime => 두개의 값이 같아진다.
         //1, -1, 0 이 숫자 3개 말고는 다 매직넘버이므로 변수로 빼야된다.
 
-        // 1-1, 포지션 값에 제한을 둔다.
+        // 실습 1-1, 포지션 값에 제한을 둔다.
         //if (newPosition.x < MinX)
         //{
         //    newPosition.x = MinX;
@@ -94,17 +103,38 @@ public class PlayerMove : MonoBehaviour
         //    newPosition.y = MaxY;
         //}
 
-        // 2. 스피드 조작
-        if(Input.GetKey("q"))
+        // 실습 2. 스피드 조작
+
+        //if(Input.GetKey("q"))
+        //{
+        //    Speed += 1;
+        //}
+        //else if(Input.GetKey("e"))
+        //{
+        //    Speed -= 1;
+        //}
+
+        if (Input.GetKeyDown("q")) //GetKey : 누르고 있는 동안 계속 실행 / GetKeyDown : 한 번만 실행
         {
-            Speed += 1;
+            Speed++;
+            //if(Speed > MaxSpeed)
+            //{
+            //    Speed = MaxSpeed;
+            //}
         }
-        else if(Input.GetKey("e"))
+        else if (Input.GetKeyDown("e"))
         {
-            Speed -= 1;
+            Speed--;
+            //if(Speed < MinSpeed)
+            //{
+            //    Speed = MinSpeed;
+            //}
         }
 
-        // 3. 양쪽 끝으로 가면 반대쪽 끝에서 다시 나오게
+        //Speed = Mathf.Max(MinSpeed, Mathf.Min(MaxSpeed, Speed));
+        Speed = Mathf.Clamp(Speed, MinSpeed, MaxSpeed);
+
+        // 실습 3. 양쪽 끝으로 가면 반대쪽 끝에서 다시 나오게
         if (newPosition.x < LeftEnd)
         {
             newPosition.x = RightEnd;
