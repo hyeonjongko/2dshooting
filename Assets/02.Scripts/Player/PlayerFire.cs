@@ -1,34 +1,102 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class PlayertFire : MonoBehaviour
 {
-    //¸ñÇ¥ : ½ºÆäÀÌ½º¹Ù¸¦ ´©¸£¸é ÃÑ¾ËÀ» ¸¸µé¾î¼­ ¹ß»çÇÏ°í ½Í´Ù.
+    //ëª©í‘œ : ìŠ¤í˜ì´ìŠ¤ë°”ë¥¼ ëˆ„ë¥´ë©´ ì´ì•Œì„ ë§Œë“¤ì–´ì„œ ë°œì‚¬í•˜ê³  ì‹¶ë‹¤.
 
-    //ÇÊ¿ä ¼Ó¼º
-    [Header("ÃÑ¾Ë ÇÁ¸®ÆÕ")]
-    public GameObject BulletPrefab;
+    //í•„ìš” ì†ì„±
+    [Header("ì´ì•Œ í”„ë¦¬íŒ¹")]
+    public GameObject LeftBulletPrefab;
+    public GameObject RightBulletPrefab;
 
-    [Header("ÃÑ±¸")]
-    public Transform FirePosition;
+    [Header("ë³´ì¡° ì´ì•Œ í”„ë¦¬íŒ¹")]
+    public GameObject LeftAssiBulletPrefab;
+    public GameObject RightAssiBulletPrefab;
+
+    [Header("ì´êµ¬")]
+    public Transform LeftFirePosition;
+    public Transform RightFirePosition;
+
+    [Header("ë³´ì¡° ì´êµ¬")]
+    public Transform LeftAssiFirePosition;
+    public Transform RightAssiFirePosition;
+
+    [Header("ì¥ì „ì‹œê°„")]
+    public float time;
+    public float Ptime;
+    public float Load = 0.6f;
+    public int Count = 0;
+
+    [Header("ëª¨ë“œ")]
+    public bool auto = false;
+    public float autoShoot = 0.6f;
+    public float NextShoot = 0.0f;
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
-    {   
-        // 1. ¹ß»ç ¹öÆ°À» ´©¸£¸é
-        if(Input.GetKeyDown(KeyCode.Space))
+    {
+        time += Time.deltaTime;
+        // 1. ë°œì‚¬ ë²„íŠ¼ì„ ëˆ„ë¥´ë©´
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            // 2. ÇÁ¸®ÆÕÀ¸·ÎºÎÅÍ °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
-            // À¯´ÏÆ¼¿¡¼­ °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÒ¶§´Â new°¡ Instantiate¶ó´Â ¸Ş¼­µå¸¦ ÀÌ¿ëÇÑ´Ù.
-            //Å¬·¡½º -> °´Ã¼(¼Ó¼º + ±â´É) -> ¸Ş¸ğ¸®¿¡ ·ÎµåµÈ °´Ã¼¸¦ ÀÎ½ºÅÏ½º
-            //                           ¤¤> ÀÎ½ºÅÏ½ºÈ­
-            GameObject bullet = Instantiate(BulletPrefab);
-            //3. ÃÑ¾ËÀÇ À§Ä¡¸¦ ÃÑ±¸ À§Ä¡·Î ¹Ù²Ù±â 
-            bullet.transform.position = FirePosition.position;//»ı¼º ÈÄ À§Ä¡ ¼öÁ¤(this´Â »ı·«°¡´É)
+            auto = true;
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            auto = false;
+        }
+
+        if(auto == true)
+        {
+            if(time >= NextShoot)
+            {
+                Shoot();
+                AssiShoot();
+
+                NextShoot = time + autoShoot;
+            }
+
+        }
+        else if (auto == false && Input.GetKeyDown(KeyCode.Space))
+        {
+            if (Count == 0)
+            {
+                Count = 1;
+                Ptime = time;
+
+                Shoot();
+                AssiShoot();
+            }
+        }
+        if (Count == 1 && time >= Ptime + Load)
+        {
+            Count = 0;
+        }
+    }
+
+    public void Shoot()
+    {
+        // 2. í”„ë¦¬íŒ¹ìœ¼ë¡œë¶€í„° ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
+        // ìœ ë‹ˆí‹°ì—ì„œ ê²Œì„ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í• ë•ŒëŠ” newê°€ Instantiateë¼ëŠ” ë©”ì„œë“œë¥¼ ì´ìš©í•œë‹¤.
+        //í´ë˜ìŠ¤ -> ê°ì²´(ì†ì„± + ê¸°ëŠ¥) -> ë©”ëª¨ë¦¬ì— ë¡œë“œëœ ê°ì²´ë¥¼ ì¸ìŠ¤í„´ìŠ¤
+        //                           ã„´> ì¸ìŠ¤í„´ìŠ¤í™”
+        GameObject Leftbullet = Instantiate(LeftBulletPrefab);
+        GameObject Rightbullet = Instantiate(RightBulletPrefab);
+        //3. ì´ì•Œì˜ ìœ„ì¹˜ë¥¼ ì´êµ¬ ìœ„ì¹˜ë¡œ ë°”ê¾¸ê¸° 
+        Leftbullet.transform.position = LeftFirePosition.position;//ìƒì„± í›„ ìœ„ì¹˜ ìˆ˜ì •(thisëŠ” ìƒëµê°€ëŠ¥)
+        Rightbullet.transform.position = RightFirePosition.position;
+    }
+    public void AssiShoot()
+    {
+        GameObject Leftbullet = Instantiate(LeftAssiBulletPrefab);
+        GameObject Rightbullet = Instantiate(RightAssiBulletPrefab);
+        
+        Leftbullet.transform.position = LeftAssiFirePosition.position;
+        Rightbullet.transform.position = RightAssiFirePosition.position;
     }
 }
