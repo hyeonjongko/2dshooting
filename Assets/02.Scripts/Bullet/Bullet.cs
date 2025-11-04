@@ -28,22 +28,22 @@ public class Bullet : MonoBehaviour
         Vector2 newPosition = position + direction * _speed * Time.deltaTime;
 
         ////실습 1번 
-        {
-            time += Time.deltaTime;
+        //{
+        //    time += Time.deltaTime;
 
-            _speed = Mathf.Lerp(StartSpeed, MaxSpeed, time / Duration);
-            //time / Duration을 하는 이유는
-            //전체 구간 중 지금이 몇 퍼센트쯤 왔는지"를 계산해서,
-            //그 비율에 따라 StartSpeed → MaxSpeed로 자연스럽게 보간하기 위해서입니다.
-        }
+        //    _speed = Mathf.Lerp(StartSpeed, MaxSpeed, time / Duration);
+        //    //time / Duration을 하는 이유는
+        //    //전체 구간 중 지금이 몇 퍼센트쯤 왔는지"를 계산해서,
+        //    //그 비율에 따라 StartSpeed → MaxSpeed로 자연스럽게 보간하기 위해서입니다.
+        //}
 
         // 실습 1번 풀이
-        //{
-        //    float acce = (MaxSpeed - StartSpeed) / Duration;
-        //    _speed += 1 / Time.deltaTime * acce;
-        //    _speed = Mathf.Min(_speed, MaxSpeed);
-        //    //              ㄴ 어떤 속성과 어떤 메서드를 가지고 있는지 톺아볼 필요가 있다.
-        //}
+        {
+            float acce = (MaxSpeed - StartSpeed) / Duration;
+            _speed += Time.deltaTime * acce;
+            _speed = Mathf.Min(_speed, MaxSpeed);
+            //              ㄴ 어떤 속성과 어떤 메서드를 가지고 있는지 톺아볼 필요가 있다.
+        }
 
 
         transform.position = newPosition;
