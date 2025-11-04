@@ -33,15 +33,15 @@ public class PlayerMove : MonoBehaviour
 
     public float Run = 5;
 
-    [Header("거리")]
+    [Header("시작위치")]
+    private Vector2 _origin; //은닉화
 
-    public Vector2 origin = new Vector2(0, 0);
-    public Vector2 destination = new Vector2(0, 0);
 
     //게임 오브젝트가 게임을 시작할 때
     void Start()
     {
-
+        //처음 시작 위치 저장
+        _origin = transform.position;
     }
 
     // 게임 오브젝트가 게임을 시작 후 최대한 많이
@@ -72,18 +72,18 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown("q")) //GetKey : 누르고 있는 동안 계속 실행 / GetKeyDown : 한 번만 실행
         {
             Speed++;
-            //if(Speed > MaxSpeed)
-            //{
-            //    Speed = MaxSpeed;
-            //}
+            if (Speed > MaxSpeed)
+            {
+                Speed = MaxSpeed;
+            }
         }
         else if (Input.GetKeyDown("e"))
         {
             Speed--;
-            //if(Speed < MinSpeed)
-            //{
-            //    Speed = MinSpeed;
-            //}
+            if (Speed < MinSpeed)
+            {
+                Speed = MinSpeed;
+            }
         }
 
         //Speed = Mathf.Max(MinSpeed, Mathf.Min(MaxSpeed, Speed));
@@ -177,13 +177,21 @@ public class PlayerMove : MonoBehaviour
 
         transform.position = newPosition; // 새로운 위치로 갱신
 
-        destination.x = newPosition.x - origin.x;
-        destination.y = newPosition.y - origin.y;
+
+
 
         //실습 5. R키를 누르고 있으면 플레이어가 자동으로 원점으로 가게끔(Translate를 사용하세요.)
         if (Input.GetKey("r"))
         {
-            transform.Translate(-destination *Speed * Time.deltaTime );
+            TranslateToOrigin();
+            //transform.Translate(-destination *Speed * Time.deltaTime );
         }                        
+    }
+    private void TranslateToOrigin()
+    {
+        Vector2 destination = _origin - (Vector2)transform.position;
+        //destination.x = newPosition.x - _origin.x;
+        //destination.y = newPosition.y - _origin.y;
+        transform.Translate(destination * Speed * Time.deltaTime);
     }
 }
