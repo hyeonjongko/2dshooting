@@ -46,12 +46,12 @@ public class Enemy : MonoBehaviour
     //    //여기서 게임오브젝트는 부딪힌 오브젝트를 의미한다.
     //    Destroy(other.gameObject);
     //}
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        Debug.Log("충돌중");
-    }
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        Debug.Log("충돌 끝");
-    }
+    //private void OnTriggerStay2D(Collider2D other)
+    //{
+    //    Debug.Log("충돌중");
+    //}
+    //private void OnTriggerExit2D(Collider2D other)
+    //{
+    //    Debug.Log("충돌 끝");
+    //}
 }

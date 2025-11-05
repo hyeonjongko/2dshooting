@@ -4,6 +4,8 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("시간")]
     private float _time;
+    public float StartTime = 1.0f;
+    public float EndTime = 4.0f;
     public float Duration = 0.0f;
 
     [Header("적 프리팹")]
@@ -36,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
             GameObject EnemySpawn = Instantiate(EnemyPrefab);
             EnemySpawn.transform.position = SpawnerPosition.position;
             //transform은 GetComponent()로 하지 않는 이유는 transform은 항상 component에 있기 때문에.
-            Duration = UnityEngine.Random.Range(1f, 4f);
+            Duration = UnityEngine.Random.Range(StartTime, EndTime);
         }
 
 
