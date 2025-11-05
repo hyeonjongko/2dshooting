@@ -107,6 +107,7 @@ MonoBehaviour:
   _speed: 0
   time: 0
   Duration: 10
+  Damage: 60
 --- !u!50 &3488699356203371566
 Rigidbody2D:
   serializedVersion: 5

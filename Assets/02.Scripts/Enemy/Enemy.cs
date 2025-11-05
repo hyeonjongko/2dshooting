@@ -9,13 +9,17 @@ public class Enemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        Debug.Log(Health);
     }
 
     // 게임이 진행되고 있다는 이벤트
     void Update()
     {
         //transform.Translate(Vector2.down * Speed * Time.deltaTime);
+        if(Health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     //private void OnTriggerEnter2D(Collider2D other)

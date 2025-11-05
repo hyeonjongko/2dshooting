@@ -11,6 +11,9 @@ public class Bullet : MonoBehaviour
     public float time = 0.0f;
     public float Duration = 1.2f;
 
+    [Header("데미지")]
+    public int Damage;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -58,8 +61,16 @@ public class Bullet : MonoBehaviour
         //GetComponent는 게임오브젝트에 붙어있는 컴포넌트를 가져올 수 있다.
         Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
-        Debug.Log(enemy.Health);
+       
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            enemy.Health -= Damage;
+        }
+
         Destroy(this.gameObject);
-        Destroy(other.gameObject);
+        //Destroy(other.gameObject);
+
+        Debug.Log(enemy.Health);
     }
 }
