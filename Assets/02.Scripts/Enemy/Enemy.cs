@@ -4,19 +4,27 @@ public class Enemy : MonoBehaviour
 {
     [Header("스탯")]
     public float Speed;
-    public float Health = 100;
+    public float Damage = 1.0f;
+    private float _health = 100.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Debug.Log(Health);
+        Debug.Log(_health);
     }
 
     // 게임이 진행되고 있다는 이벤트
     void Update()
     {
         //transform.Translate(Vector2.down * Speed * Time.deltaTime);
-        if(Health <= 0)
+
+    }
+
+    public void Hit(float damage)
+    {
+        _health -= damage;
+
+        if (_health <= 0)
         {
             Destroy(this.gameObject);
         }
