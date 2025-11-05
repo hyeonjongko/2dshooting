@@ -56,7 +56,7 @@ public class PlayerMove : MonoBehaviour
         float v = Input.GetAxisRaw("Vertical");
         //GetAxisRaw : -1, 0, 1의 값을 반환
 
-        Debug.Log($"h : {h}, v: {v}");
+        //Debug.Log($"h : {h}, v: {v}");
 
         // 실습 2. 스피드 조작
 
@@ -109,7 +109,7 @@ public class PlayerMove : MonoBehaviour
         direction.Normalize();
         //direction = direction.normalized; // 방법은 위와 아래의 방법 2가지가 있다.
 
-        Debug.Log($"direction : {direction.x},{direction.y}");
+        //Debug.Log($"direction : {direction.x},{direction.y}");
 
 
 
