@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5080943030955958268}
   - component: {fileID: 3823557469556843586}
-  - component: {fileID: -6936455666364546621}
+  - component: {fileID: 4875301870149447042}
   - component: {fileID: -2882832226028795738}
   - component: {fileID: -5322467365597862397}
   m_Layer: 0
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-6936455666364546621
+--- !u!114 &4875301870149447042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,13 +99,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3654810932391516977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 046fadddc0bdfe647ae256196bd140a7, type: 3}
+  m_Script: {fileID: 11500000, guid: a82563da7f2e2e640b9226007ab9fc63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AssStartSpeed: 2
-  AssMaxSpeed: 10
-  Asstime: 0
-  AssDuration: 1.5
+  StartSpeed: 2
+  MaxSpeed: 10
+  _speed: 0
+  time: 0
+  Duration: 1.2
 --- !u!50 &-2882832226028795738
 Rigidbody2D:
   serializedVersion: 5

@@ -36,6 +36,9 @@ public class PlayerMove : MonoBehaviour
     [Header("시작위치")]
     private Vector2 _origin; //은닉화
 
+    [Header("카운트")]
+    private int Count = 3;
+
 
     //게임 오브젝트가 게임을 시작할 때
     void Start()
@@ -185,7 +188,12 @@ public class PlayerMove : MonoBehaviour
         {
             TranslateToOrigin();
             //transform.Translate(-destination *Speed * Time.deltaTime );
-        }                        
+        }    
+        
+        if(Count == 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
     private void TranslateToOrigin()
     {
@@ -193,5 +201,13 @@ public class PlayerMove : MonoBehaviour
         //destination.x = newPosition.x - _origin.x;
         //destination.y = newPosition.y - _origin.y;
         transform.Translate(destination * Speed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Enemy"))
+        {
+            Count--;
+        }
     }
 }
