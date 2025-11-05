@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     // 게임이 진행되고 있다는 이벤트
     void Update()
     {
-        //transform.Translate(Vector2.down * Speed * Time.deltaTime);
+        transform.Translate(Vector2.down * Speed * Time.deltaTime);
 
     }
 
