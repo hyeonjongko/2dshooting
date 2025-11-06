@@ -3,7 +3,6 @@
 public class Enemy : MonoBehaviour
 {
     [Header("스탯")]
-    public float Speed;
     public float Damage = 1.0f;
     private float _health = 100.0f;
 
@@ -16,7 +15,7 @@ public class Enemy : MonoBehaviour
     // 게임이 진행되고 있다는 이벤트
     void Update()
     {
-        transform.Translate(Vector2.down * Speed * Time.deltaTime);
+        
 
     }
 
