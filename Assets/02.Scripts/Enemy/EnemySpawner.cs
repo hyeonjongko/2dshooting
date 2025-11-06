@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
     public float Duration = 0.0f;
 
     [Header("적 프리팹")]
-    public GameObject EnemyPrefab;
+    public GameObject[] EnemyPrefab;
 
     [Header("적 스포너 위치")]
     public Transform SpawnerPosition;
@@ -35,11 +35,20 @@ public class EnemySpawner : MonoBehaviour
             _time = 0f;
 
             //3. 에너미프리팹으로부터 생성
-            GameObject EnemySpawn = Instantiate(EnemyPrefab);
-            EnemySpawn.transform.position = SpawnerPosition.position;
-            //transform은 GetComponent()로 하지 않는 이유는 transform은 항상 component에 있기 때문에.
-            Duration = UnityEngine.Random.Range(StartTime, EndTime);
+            if (UnityEngine.Random.Range(0, 100) > 70)
+            {
+                GameObject EnemySpawn = Instantiate(EnemyPrefab[(int)EEnemyType.Directional]);
+                EnemySpawn.transform.position = SpawnerPosition.position;
+            }
+            else
+            {
+                GameObject EnemySpawn = Instantiate(EnemyPrefab[(int)EEnemyType.Trace]);
+                EnemySpawn.transform.position = SpawnerPosition.position;
+            }
+
+                Duration = UnityEngine.Random.Range(StartTime, EndTime);
         }
+            //transform은 GetComponent()로 하지 않는 이유는 transform은 항상 component에 있기 때문에.
 
 
     }
