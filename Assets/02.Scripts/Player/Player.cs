@@ -7,20 +7,19 @@ public class Player : MonoBehaviour
     {
         _health -= damage;
 
-        if (_health <= 0)
+        if( _health <= 0 )
         {
             Destroy(gameObject);
         }
     }
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
-
 }
