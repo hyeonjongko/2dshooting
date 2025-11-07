@@ -77,6 +77,11 @@ public class PlayertFire : MonoBehaviour
         }
     }
 
+    public void AttackSpeedUp(float value)
+    {
+        Load /= value;
+    }
+
     public void Shoot()
     {
         // 2. 프리팹으로부터 게임 오브젝트를 생성한다.

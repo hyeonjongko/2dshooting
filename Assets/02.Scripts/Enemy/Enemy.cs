@@ -87,7 +87,7 @@ public class Enemy : MonoBehaviour
 
         //if (other.CompareTag("Player") == false) return;
 
-        //GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        //GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); //Hierarchy
         ////foreach 문은 컬렉션의 첫 번째 요소부터 시작하여, 컬렉션의 각 요소를 순차적으로 변수명에 할당하고,
         ////반복문의 본문을 실행합니다.
         ////이 과정은 컬렉션의 모든 요소가 처리될 때까지 계속됩니다.
