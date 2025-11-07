@@ -27,9 +27,10 @@ public class Item : MonoBehaviour
     private float _heal = 1.0f;
     private float _attackSpeed = 2.0f;
 
+
+
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -40,32 +41,28 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") == false)
+        if (other.CompareTag("Player") == false) return;
+
+        Apply(other);
+
+        Destroy(this.gameObject);
+    }
+    private void Apply(Collider2D other)
+    {
+        if (ItemType == EItemType.SpeedUp)
         {
-            return;
+            PlayerMove playerMove = other.gameObject.GetComponent<PlayerMove>();
+            playerMove.SpeedUp(_speedUp);
         }
-
-        else
+        else if (ItemType == EItemType.Heal)
         {
-            if (ItemType == EItemType.SpeedUp)
-            {
-                PlayerMove playerMove = other.gameObject.GetComponent<PlayerMove>();
-                playerMove.SpeedUp(_speedUp);
-            }
-            else if (ItemType == EItemType.Heal)
-            {
-                Player player = other.gameObject.GetComponent<Player>();
-                player.Heal(_heal);
-            }
-            else if (ItemType == EItemType.AttackSpeedUp)
-            {
-                PlayertFire playerFire = other.gameObject.GetComponent<PlayertFire>();
-                playerFire.AttackSpeedUp(_attackSpeed);
-            }
+            Player player = other.gameObject.GetComponent<Player>();
+            player.Heal(_heal);
         }
-
-
-
-            Destroy(this.gameObject);
+        else if (ItemType == EItemType.AttackSpeedUp)
+        {
+            PlayertFire playerFire = other.gameObject.GetComponent<PlayertFire>();
+            playerFire.AttackSpeedUp(_attackSpeed);
+        }
     }
 }
