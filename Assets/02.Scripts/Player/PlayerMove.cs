@@ -14,7 +14,9 @@ public class PlayerMove : MonoBehaviour
     // 3. 이동
 
     [Header("능력치")]
-    public float Speed = 3;
+    private float _speed = 3;
+
+    //public float _speed => _speed; //get,set 문법
 
     [Header("이동범위")]
     public float MinX = -2;
@@ -47,6 +49,12 @@ public class PlayerMove : MonoBehaviour
         _origin = transform.position;
     }
 
+    public void SpeedUp(int value)
+    {
+        _speed += value;
+        //_speed = Mathf.Min(_speed, MaxSpeed);
+    }
+
     // 게임 오브젝트가 게임을 시작 후 최대한 많이
     void Update()
     {
@@ -65,34 +73,34 @@ public class PlayerMove : MonoBehaviour
 
         //if(Input.GetKey("q"))
         //{
-        //    Speed += 1;
+        //    _speed += 1;
         //}
         //else if(Input.GetKey("e"))
         //{
-        //    Speed -= 1;
+        //    _speed -= 1;
         //}
 
-        if (Input.GetKeyDown("q")) //GetKey : 누르고 있는 동안 계속 실행 / GetKeyDown : 한 번만 실행
-        {
-            Speed++;
-            if (Speed > MaxSpeed)
-            {
-                Speed = MaxSpeed;
-            }
-        }
-        else if (Input.GetKeyDown("e"))
-        {
-            Speed--;
-            if (Speed < MinSpeed)
-            {
-                Speed = MinSpeed;
-            }
-        }
+        //if (Input.GetKeyDown("q")) //GetKey : 누르고 있는 동안 계속 실행 / GetKeyDown : 한 번만 실행
+        //{
+        //    _speed++;
+        //    if (_speed > MaxSpeed)
+        //    {
+        //        _speed = MaxSpeed;
+        //    }
+        //}
+        //else if (Input.GetKeyDown("e"))
+        //{
+        //    _speed--;
+        //    if (_speed < MinSpeed)
+        //    {
+        //        _speed = MinSpeed;
+        //    }
+        //}
 
-        //Speed = Mathf.Max(MinSpeed, Mathf.Min(MaxSpeed, Speed));
-        Speed = Mathf.Clamp(Speed, MinSpeed, MaxSpeed);
+        //_speed = Mathf.Max(MinSpeed, Mathf.Min(MaxSpeed, _speed));
+        _speed = Mathf.Clamp(_speed, MinSpeed, MaxSpeed);
 
-        float RunSpeed = Speed;
+        float RunSpeed = _speed;
 
         //실습 4번 : Shift키를 누르는 중에 이동속도가 1.2배 빨라지게
         if (Input.GetKey(KeyCode.LeftShift))
@@ -101,7 +109,7 @@ public class PlayerMove : MonoBehaviour
         }
         //else if (Input.GetKeyUp(KeyCode.LeftShift))
         //{
-        //    Speed = Speed / Run;
+        //    _speed = _speed / Run;
         //}
 
         // 2. 입력으로부터 방향을 구한다.
@@ -129,7 +137,7 @@ public class PlayerMove : MonoBehaviour
         // 새로운 위치 = 현재 위치 + (방향 * 속력) * 시간
         // 새로운 위치 = 현재 위치 + 속도 * 시간;
         //      새로운 위치 = 현재 위치 + 방향     * 속력
-        //Vector2 newPosition = position + direction * Speed * Time.deltaTime; // 새로운 위치
+        //Vector2 newPosition = position + direction * _speed * Time.deltaTime; // 새로운 위치
 
         Vector2 newPosition = position + distance; // 새로운 위치
 
@@ -187,7 +195,7 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKey("r"))
         {
             TranslateToOrigin();
-            //transform.Translate(-destination *Speed * Time.deltaTime );
+            //transform.Translate(-destination *_speed * Time.deltaTime );
         }    
         
         if(Count == 0)
@@ -200,7 +208,7 @@ public class PlayerMove : MonoBehaviour
         Vector2 destination = _origin - (Vector2)transform.position;
         //destination.x = newPosition.x - _origin.x;
         //destination.y = newPosition.y - _origin.y;
-        transform.Translate(destination * Speed * Time.deltaTime);
+        transform.Translate(destination * _speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

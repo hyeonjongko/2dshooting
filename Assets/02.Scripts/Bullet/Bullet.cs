@@ -50,7 +50,7 @@ public class Bullet : MonoBehaviour
 
 
         transform.position = newPosition;
-        //transform.Translate(direction * Speed * Time.deltaTime);
+        //transform.Translate(direction * _speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
