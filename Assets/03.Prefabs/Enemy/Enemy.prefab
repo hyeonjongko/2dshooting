@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7542804511670670295}
   - component: {fileID: 4751991536798792256}
   - component: {fileID: 2722059459645459308}
-  - component: {fileID: 3621509716045754529}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -107,7 +106,6 @@ MonoBehaviour:
   Damage: 1
   Direction: {x: 0, y: 0}
   Type: 0
-  DropSpot: {x: 0, y: 0}
 --- !u!50 &4751991536798792256
 Rigidbody2D:
   serializedVersion: 5
@@ -190,20 +188,3 @@ PolygonCollider2D:
       - {x: 0.5001776, y: 0.015287161}
       - {x: 0.25509804, y: 0.44008207}
   m_UseDelaunayMesh: 0
---- !u!114 &3621509716045754529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8395325192857343219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 252a4d5cd2a384c4594a272cd54a88eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemPrefab:
-  - {fileID: 2658311591779936535, guid: 1a8e34e9643c51345905fddbe8b8788c, type: 3}
-  - {fileID: 9121832800083672172, guid: 5abff2552ed11ce4dad312c52fa47a3e, type: 3}
-  - {fileID: 4438265044101028234, guid: 165f7b09f8a0009409ff80e5f38e57de, type: 3}
-  ItemWeights: 46000000140000000a000000

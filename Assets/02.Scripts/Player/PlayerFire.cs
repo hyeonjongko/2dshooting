@@ -80,7 +80,6 @@ public class PlayertFire : MonoBehaviour
     public void AttackSpeedUp(float value)
     {
         Load /= value;
-        autoShoot /= value;
     }
 
     public void Shoot()
