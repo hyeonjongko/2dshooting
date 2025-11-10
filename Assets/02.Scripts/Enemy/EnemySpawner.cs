@@ -45,8 +45,8 @@ public class EnemySpawner : MonoBehaviour
             }
             else
             {
-                GameObject EnemySpawn = Instantiate(EnemyPrefab[(int)EEnemyType.Trace]);
-                EnemySpawn.transform.position = SpawnerPosition.position;
+                //GameObject EnemySpawn = Instantiate(EnemyPrefab[(int)EEnemyType.Trace]);
+                //EnemySpawn.transform.position = SpawnerPosition.position;
             }
 
                 Duration = UnityEngine.Random.Range(StartTime, EndTime);

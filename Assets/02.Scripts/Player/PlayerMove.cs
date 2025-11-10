@@ -44,13 +44,16 @@ public class PlayerMove : MonoBehaviour
     [Header("자동 모드")]
     public bool AutoMode;
     public float time;
-    public float attackRange = 5f;              // 적에게 접근할 거리
-    public float safeDistance = 3f;             // 너무 가까워지면 회피 시작 거리
+    public float attackRange = 0.2f;              // 적에게 접근할 거리
+    public float safeDistanceX = 0.2f;             // 너무 가까워지면 회피 시작 거리
+    public float safeDistanceY = 0.5f;
     public float evadeSpeedMultiplier = 1.5f;   // 회피 시 속도 배수
+    public float neutralZone = 0.05f;
 
     private Transform EnemyPosition;            // 현재 추적 중인 적
     private float findInterval = 0.1f;          // 적 탐색 주기
     private float findTimer = 0f;               // 탐색 타이머
+
 
 
     //게임 오브젝트가 게임을 시작할 때
@@ -102,50 +105,43 @@ public class PlayerMove : MonoBehaviour
             return;
 
         // 적과 플레이어의 X축 거리 계산
-        float directionX = EnemyObject.transform.position.x - transform.position.x;
-        float distance = Mathf.Abs(directionX); //math.Abs ->절대값
+        float directionX = (EnemyObject.transform.position.x - transform.position.x);
+        float directionY = EnemyObject.transform.position.y - transform.position.y;
+        float distanceX = Mathf.Abs(directionX); //math.Abs ->절대값
+        float distanceY = Mathf.Abs(directionY);
+
 
         float moveDirX = 0f;
 
-        if (distance > attackRange) //적과 플레이어의 X축 거리가 접근거리보다 크면
+        bool _isEvading = false;
+
+        if (distanceX < safeDistanceX && distanceY < safeDistanceY)
         {
-            // 공격 범위 밖 → 적에게 다가감
-            moveDirX = Mathf.Sign(directionX); // 오른쪽이면 +1, 왼쪽이면 -1
-        }
-        else if (distance < safeDistance)
-        {
+            _isEvading = true;
             // 너무 가까움 → 반대 방향으로 회피
             moveDirX = -Mathf.Sign(directionX) * evadeSpeedMultiplier;
 
             // 회피 시 약간 랜덤성 추가 (멈추지 않게)
-            moveDirX += Random.Range(-0.2f, 0.2f);
+            //moveDirX += Random.Range(-0.2f, 0.2f);
+        }
+        else if (!_isEvading && distanceX >= safeDistanceX && distanceX > attackRange)
+        {
+            moveDirX = Mathf.Sign(directionX);
         }
 
         Vector2 newPosition = transform.position;
         newPosition.x += moveDirX * _speed * Time.deltaTime;
 
-        if (newPosition.x < MinX)
-        {
-            newPosition.x = MinX;
-        }
-        else if (newPosition.x > MaxX)
-        {
-            newPosition.x = MaxX;
-        }
-        else if (newPosition.y < MinY)
-        {
-            newPosition.y = MinY;
-        }
-        else if (newPosition.y > MaxY)
-        {
-            newPosition.y = MaxY;
-        }
+        newPosition.x = Mathf.Clamp(newPosition.x, MinX, MaxX);
+        newPosition.y = Mathf.Clamp(newPosition.y, MinY, MaxY);
+
+
 
         transform.position = newPosition;
     }
     public void FindClosestEnemy()
     {
-        GameObject EnemyObject = GameObject.FindWithTag("Enemy");
+        //GameObject EnemyObject = GameObject.FindWithTag("Enemy");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); //Hierarchy
 
         float shortestDistance = Mathf.Infinity; // Mathf.Infinity => 양의 무한대를 나타낸다.
@@ -155,17 +151,18 @@ public class PlayerMove : MonoBehaviour
         {
             float distance = Vector2.Distance(transform.position, enemy.transform.position); //Vector2.Distance : 벡터 길이 구하기
 
-            //새로 측정한 거리가 전에 기록된 거리보다 작으면 더 가따운 적을 찾음
+            //새로 측정한 거리가 전에 기록된 거리보다 작으면 더 가까운 적을 찾음
             if (distance < shortestDistance) //양의 무한대라 첫 번째 적 무조건 만족
             {
                 shortestDistance = distance;
                 nearestEnemy = enemy;
             }
+            if (nearestEnemy)
+            {
+                enemy.transform.position = nearestEnemy.transform.position;
+            }
         }
-        if (nearestEnemy)
-        {
-            EnemyObject.transform.position = nearestEnemy.transform.position;
-        }
+
         //else
         //{
         //    EnemyObject.transform.position = null;
@@ -247,7 +244,7 @@ public class PlayerMove : MonoBehaviour
 
 
         //Translate 버전
-        //transform.Translate(distance);
+        //transform.Translate(distanceX);
 
         // 새로운 위치 = 현재 위치 + (방향 * 속력) * 시간
         // 새로운 위치 = 현재 위치 + 속도 * 시간;

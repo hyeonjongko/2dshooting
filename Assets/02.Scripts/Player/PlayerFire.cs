@@ -24,6 +24,7 @@ public class PlayerFire : MonoBehaviour
     public float Ptime;
     public float Load = 0.6f;
     public int Count = 0;
+    public float MaxLoad = 0.2f;
 
     [Header("모드")]
     public bool auto = false;
@@ -81,6 +82,14 @@ public class PlayerFire : MonoBehaviour
     {
         Load /= value;
         autoShoot /= value;
+        if(Load < MaxLoad)
+        {
+            Load = MaxLoad;
+        }
+        if(autoShoot < MaxLoad)
+        {
+            autoShoot = MaxLoad;
+        }
     }
 
     public void Shoot()

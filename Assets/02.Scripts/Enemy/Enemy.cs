@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     [Header("스탯")]
     public float Speed;
     public float Damage = 1.0f;
-    private float _health = 100.0f;
+    private float _health = 300.0f;
     
     public Vector2 Direction;
 
