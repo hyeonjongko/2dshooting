@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 public class PlayerMove : MonoBehaviour
 {
     PlayerFire playerFire;
+
+    private Animator _animator;
     //목표
     //"키보드 입력"에 따라 "방향"을 구하고 그 방향으로 이동시키고 싶다
 
@@ -60,6 +62,9 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         playerFire = GetComponent<PlayerFire>();
+
+        _animator = GetComponent<Animator>();
+
         //처음 시작 위치 저장
         _origin = transform.position;
     }
@@ -124,7 +129,7 @@ public class PlayerMove : MonoBehaviour
             // 회피 시 약간 랜덤성 추가 (멈추지 않게)
             //moveDirX += Random.Range(-0.2f, 0.2f);
         }
-        else if (!_isEvading && distanceX >= safeDistanceX && distanceX > attackRange)
+        else if (!_isEvading && distanceX > safeDistanceX && distanceX > attackRange)
         {
             moveDirX = Mathf.Sign(directionX);
         }
@@ -177,6 +182,8 @@ public class PlayerMove : MonoBehaviour
 
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
+
+
         //GetAxisRaw : -1, 0, 1의 값을 반환
 
         //Debug.Log($"h : {h}, v: {v}");
@@ -230,6 +237,14 @@ public class PlayerMove : MonoBehaviour
 
         // 방향을 크기 1로 만드는 정규화를 한다.
         direction.Normalize();
+
+        //첫 번째 방식 : Play 메서드를 이용한 강제 적용
+        if (direction.x < 0) _animator.Play("Left");
+        if (direction.x == 0) _animator.Play("Idle");
+        if (direction.x > 0) _animator.Play("Right");
+        //장점 : 빠르게 사용하기 편하다.
+        //이 방식의 단점은 Fade, Timing, State가 무시되고, 남요오디기 쉬워서 어디서 애니메이션을 수정하는 지 알 수 없어지게된다.
+
         //direction = direction.normalized; // 방법은 위와 아래의 방법 2가지가 있다.
 
         //Debug.Log($"direction : {direction.x},{direction.y}");
