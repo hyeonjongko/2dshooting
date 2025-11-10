@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayertFire : MonoBehaviour
+public class PlayerFire : MonoBehaviour
 {
     //목표 : 스페이스바를 누르면 총알을 만들어서 발사하고 싶다.
 

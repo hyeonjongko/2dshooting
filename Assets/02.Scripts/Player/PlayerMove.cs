@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 //플레이어 이동
 public class PlayerMove : MonoBehaviour
 {
-
+    PlayerFire playerFire;
     //목표
     //"키보드 입력"에 따라 "방향"을 구하고 그 방향으로 이동시키고 싶다
 
@@ -41,10 +41,22 @@ public class PlayerMove : MonoBehaviour
     [Header("카운트")]
     private int Count = 3;
 
+    [Header("자동 모드")]
+    public bool AutoMode;
+    public float time;
+    public float attackRange = 5f;              // 적에게 접근할 거리
+    public float safeDistance = 3f;             // 너무 가까워지면 회피 시작 거리
+    public float evadeSpeedMultiplier = 1.5f;   // 회피 시 속도 배수
+
+    private Transform EnemyPosition;            // 현재 추적 중인 적
+    private float findInterval = 0.1f;          // 적 탐색 주기
+    private float findTimer = 0f;               // 탐색 타이머
+
 
     //게임 오브젝트가 게임을 시작할 때
     void Start()
     {
+        playerFire = GetComponent<PlayerFire>();
         //처음 시작 위치 저장
         _origin = transform.position;
     }
@@ -57,6 +69,109 @@ public class PlayerMove : MonoBehaviour
 
     // 게임 오브젝트가 게임을 시작 후 최대한 많이
     void Update()
+    {
+        if (playerFire.auto == true)
+        {
+            AutoMove();
+        }
+        else
+        {
+
+            PassMode();
+        }
+
+        _speed = Mathf.Clamp(_speed, MinSpeed, MaxSpeed);
+
+        if (Count == 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    public void AutoMove()
+    {
+        time += Time.deltaTime;
+        if (findTimer >= findInterval)
+        {
+            FindClosestEnemy();
+            findTimer = 0f;
+        }
+        GameObject EnemyObject = GameObject.FindWithTag("Enemy");
+
+        // 적이 없으면 아무 것도 안 함
+        if (EnemyObject == null)
+            return;
+
+        // 적과 플레이어의 X축 거리 계산
+        float directionX = EnemyObject.transform.position.x - transform.position.x;
+        float distance = Mathf.Abs(directionX); //math.Abs ->절대값
+
+        float moveDirX = 0f;
+
+        if (distance > attackRange) //적과 플레이어의 X축 거리가 접근거리보다 크면
+        {
+            // 공격 범위 밖 → 적에게 다가감
+            moveDirX = Mathf.Sign(directionX); // 오른쪽이면 +1, 왼쪽이면 -1
+        }
+        else if (distance < safeDistance)
+        {
+            // 너무 가까움 → 반대 방향으로 회피
+            moveDirX = -Mathf.Sign(directionX) * evadeSpeedMultiplier;
+
+            // 회피 시 약간 랜덤성 추가 (멈추지 않게)
+            moveDirX += Random.Range(-0.2f, 0.2f);
+        }
+
+        Vector2 newPosition = transform.position;
+        newPosition.x += moveDirX * _speed * Time.deltaTime;
+
+        if (newPosition.x < MinX)
+        {
+            newPosition.x = MinX;
+        }
+        else if (newPosition.x > MaxX)
+        {
+            newPosition.x = MaxX;
+        }
+        else if (newPosition.y < MinY)
+        {
+            newPosition.y = MinY;
+        }
+        else if (newPosition.y > MaxY)
+        {
+            newPosition.y = MaxY;
+        }
+
+        transform.position = newPosition;
+    }
+    public void FindClosestEnemy()
+    {
+        GameObject EnemyObject = GameObject.FindWithTag("Enemy");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); //Hierarchy
+
+        float shortestDistance = Mathf.Infinity; // Mathf.Infinity => 양의 무한대를 나타낸다.
+        GameObject nearestEnemy = null;
+
+        foreach (GameObject enemy in enemies)
+        {
+            float distance = Vector2.Distance(transform.position, enemy.transform.position); //Vector2.Distance : 벡터 길이 구하기
+
+            //새로 측정한 거리가 전에 기록된 거리보다 작으면 더 가따운 적을 찾음
+            if (distance < shortestDistance) //양의 무한대라 첫 번째 적 무조건 만족
+            {
+                shortestDistance = distance;
+                nearestEnemy = enemy;
+            }
+        }
+        if (nearestEnemy)
+        {
+            EnemyObject.transform.position = nearestEnemy.transform.position;
+        }
+        //else
+        //{
+        //    EnemyObject.transform.position = null;
+        //}
+    }
+    public void PassMode()
     {
         // 1. 키보드 입력을 감지한다.
         // 유니티에서는 Input이라고 하는 모듈이 입력에 관한 모든 것을 담당한다
@@ -98,7 +213,7 @@ public class PlayerMove : MonoBehaviour
         //}
 
         //_speed = Mathf.Max(MinSpeed, Mathf.Min(MaxSpeed, _speed));
-        _speed = Mathf.Clamp(_speed, MinSpeed, MaxSpeed);
+
 
         float RunSpeed = _speed;
 
@@ -196,11 +311,6 @@ public class PlayerMove : MonoBehaviour
         {
             TranslateToOrigin();
             //transform.Translate(-destination *_speed * Time.deltaTime );
-        }    
-        
-        if(Count == 0)
-        {
-            Destroy(this.gameObject);
         }
     }
     private void TranslateToOrigin()
@@ -213,7 +323,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
             Count--;
         }

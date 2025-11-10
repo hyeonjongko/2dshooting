@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
 
     //Player player;
     //PlayerMove playerMove;
-    //PlayertFire playerFire;
+    //PlayerFire playerFire;
 
     [Header("아이템 타입")]
     public EItemType ItemType;
@@ -76,7 +76,7 @@ public class Item : MonoBehaviour
         }
         else if (ItemType == EItemType.AttackSpeedUp)
         {
-            PlayertFire playerFire = other.gameObject.GetComponent<PlayertFire>();
+            PlayerFire playerFire = other.gameObject.GetComponent<PlayerFire>();
             playerFire.AttackSpeedUp(_attackSpeed);
         }
     }
