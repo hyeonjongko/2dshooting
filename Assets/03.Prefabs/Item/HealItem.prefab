@@ -181,3 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemType: 1
+  time: 0
+  MagnetTime: 2
+  Speed: 2
+  Direction: {x: 0, y: 0}

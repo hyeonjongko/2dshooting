@@ -165,3 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aabbe44f7c13dd54691e71c690b2551c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemType: 0
+  time: 0
+  MagnetTime: 2
+  Speed: 2
+  Direction: {x: 0, y: 0}

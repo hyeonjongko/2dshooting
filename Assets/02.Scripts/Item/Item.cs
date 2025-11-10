@@ -27,6 +27,11 @@ public class Item : MonoBehaviour
     private float _heal = 1.0f;
     private float _attackSpeed = 2.0f;
 
+    [Header("아이템 자석효관")]
+    public float time;
+    public float MagnetTime = 2.0f;
+    public float Speed;
+    public Vector2 Direction;
 
 
     void Start()
@@ -36,7 +41,17 @@ public class Item : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        time += Time.deltaTime;
+        if (time >= MagnetTime)
+        {
+            // 1. 플레이어의 위치를 구한다
+            //GameObject.Find("Player"); //추천하지 않는 방식
+            GameObject PlayerObject = GameObject.FindWithTag("Player");
+            // 2. 위치에 따라 방향을 구한다
+            Direction = PlayerObject.transform.position - this.transform.position;
+            // 3. 방향에 맞게 이동한다.
+            transform.Translate(Direction * Speed * Time.deltaTime);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
