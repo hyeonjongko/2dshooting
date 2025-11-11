@@ -18,23 +18,13 @@ public class Enemy : MonoBehaviour
     [Header("적 타입")]
     public EEnemyType Type;
 
-    [Header("아이템 드랍")]
-    public Vector2 DropSpot;
-
-
-    //[Header("상태")]
-    //public bool Death = false;
-
     //[Header("적 타입")]
     //public float TraceRange;
     //public float Percent = 0.7f;
 
-    ItemDropper itemDropper;
-
     void Start()
     {
-        //Debug.Log(_health);
-        itemDropper = GetComponent<ItemDropper>();
+        Debug.Log(_health);
     }
 
     // 게임이 진행되고 있다는 이벤트
@@ -49,7 +39,6 @@ public class Enemy : MonoBehaviour
         {
             MoveTrace();
         }
-
 
         // 0. 타입에 따라 동작이 다르네?              -> 함수로 쪼개자..
         // 1. 함수가 너무 많아질거 같네?  (OCP위반)    -> 클래스로 쪼개자..
@@ -80,10 +69,7 @@ public class Enemy : MonoBehaviour
 
         if (_health <= 0)
         {
-            DropSpot = this.gameObject.transform.position;
-            itemDropper.DropItem();
-            Destroy(gameObject);
-
+            Destroy(this.gameObject);
         }
     }
 

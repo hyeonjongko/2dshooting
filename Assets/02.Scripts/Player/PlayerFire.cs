@@ -81,6 +81,7 @@ public class PlayerFire : MonoBehaviour
     public void AttackSpeedUp(float value)
     {
         Load /= value;
+<<<<<<< Updated upstream
         autoShoot /= value;
         if(Load < MaxLoad)
         {
@@ -90,6 +91,8 @@ public class PlayerFire : MonoBehaviour
         {
             autoShoot = MaxLoad;
         }
+=======
+>>>>>>> Stashed changes
     }
 
     public void Shoot()

@@ -29,6 +29,7 @@ public class Item : MonoBehaviour
     private float _heal = 1.0f;
     private float _attackSpeed = 2.0f;
 
+
     [Header("아이템 자석효관")]
     public float time;
     public float MagnetTime = 2.0f;
@@ -36,9 +37,14 @@ public class Item : MonoBehaviour
     public Vector2 Direction;
 
 
+
     void Start()
     {
+<<<<<<< Updated upstream
         _animator = GetComponent<Animator>();
+=======
+
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame
@@ -63,10 +69,31 @@ public class Item : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") == false) return;
+        if (other.CompareTag("Player") == false)
+        {
+            return;
+        }
 
-        Apply(other);
+        else
+        {
+            if (ItemType == EItemType.SpeedUp)
+            {
+                PlayerMove playerMove = other.gameObject.GetComponent<PlayerMove>();
+                playerMove.SpeedUp(_speedUp);
+            }
+            else if (ItemType == EItemType.Heal)
+            {
+                Player player = other.gameObject.GetComponent<Player>();
+                player.Heal(_heal);
+            }
+            else if (ItemType == EItemType.AttackSpeedUp)
+            {
+                PlayertFire playerFire = other.gameObject.GetComponent<PlayertFire>();
+                playerFire.AttackSpeedUp(_attackSpeed);
+            }
+        }
 
+<<<<<<< Updated upstream
         Destroy(this.gameObject);
     }
     private void Apply(Collider2D other)
@@ -86,5 +113,10 @@ public class Item : MonoBehaviour
             PlayerFire playerFire = other.gameObject.GetComponent<PlayerFire>();
             playerFire.AttackSpeedUp(_attackSpeed);
         }
+=======
+
+
+            Destroy(this.gameObject);
+>>>>>>> Stashed changes
     }
 }
