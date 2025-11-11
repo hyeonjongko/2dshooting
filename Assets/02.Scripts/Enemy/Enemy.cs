@@ -29,15 +29,18 @@ public class Enemy : MonoBehaviour
     //public float TraceRange;
     //public float Percent = 0.7f;
 
-    ItemDropper itemDropper;
-
     [Header("폭발 프리팹")]
     public GameObject ExplosionPrefab;
+
+
+    ItemDropper _itemDropper;
+    private Animator _animator;
 
     void Start()
     {
         //Debug.Log(_health);
-        itemDropper = GetComponent<ItemDropper>();
+        _itemDropper = GetComponent<ItemDropper>();
+        _animator = GetComponent<Animator>();
     }
 
     // 게임이 진행되고 있다는 이벤트
@@ -80,11 +83,19 @@ public class Enemy : MonoBehaviour
     public void Hit(float damage)
     {
         _health -= damage;
+        if (Type == EEnemyType.Directional)
+        {
+            _animator.SetTrigger("EnemyAnim");
+        }
+        else if (Type == EEnemyType.Trace)
+        {
+            _animator.SetTrigger("TraceEnemyAnim");
+        }
 
         if (_health <= 0)
         {
             DropSpot = this.gameObject.transform.position;
-            itemDropper.DropItem();
+            _itemDropper.DropItem();
             Destroy(gameObject);
             MakeExplosionEffect();
         }
