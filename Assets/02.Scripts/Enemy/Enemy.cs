@@ -82,15 +82,8 @@ public class Enemy : MonoBehaviour
 
     public void Hit(float damage)
     {
+        _animator.SetTrigger("Hit");
         _health -= damage;
-        if (Type == EEnemyType.Directional)
-        {
-            _animator.SetTrigger("EnemyAnim");
-        }
-        else if (Type == EEnemyType.Trace)
-        {
-            _animator.SetTrigger("TraceEnemyAnim");
-        }
 
         if (_health <= 0)
         {

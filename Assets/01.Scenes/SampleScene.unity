@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 49507335}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: -4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -528,8 +528,9 @@ GameObject:
   m_Component:
   - component: {fileID: 179270321}
   - component: {fileID: 179270322}
+  - component: {fileID: 179270323}
   m_Layer: 0
-  m_Name: Backgrounds_2
+  m_Name: Backgrounds_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -573,7 +574,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 912e1d74aaf76af4fa9e93d7d3e043fa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -605,6 +606,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &179270323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179270320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9baaab78cdff42b408d6f764eea62bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackgroundMaterial: {fileID: 2100000, guid: 912e1d74aaf76af4fa9e93d7d3e043fa, type: 2}
+  ScollSpeed: 0.2
 --- !u!4 &218990972 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2361874513250367669, guid: 8d76df3f28a5ed14c86e25d5f4e26676, type: 3}
@@ -620,8 +635,9 @@ GameObject:
   m_Component:
   - component: {fileID: 261390968}
   - component: {fileID: 261390969}
+  - component: {fileID: 261390970}
   m_Layer: 0
-  m_Name: Backgrounds_0
+  m_Name: Backgrounds_Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -665,7 +681,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5fd6489d3a4e475428d71d04e24ad5fb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -697,6 +713,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &261390970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261390967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9baaab78cdff42b408d6f764eea62bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackgroundMaterial: {fileID: 2100000, guid: 5fd6489d3a4e475428d71d04e24ad5fb, type: 2}
+  ScollSpeed: 0.1
 --- !u!1 &327578078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,8 +1068,9 @@ GameObject:
   m_Component:
   - component: {fileID: 865570336}
   - component: {fileID: 865570337}
+  - component: {fileID: 865570338}
   m_Layer: 0
-  m_Name: Backgrounds_1
+  m_Name: Backgrounds_Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1083,7 +1114,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: c712a1e9120137846971e5d991e1f8ae, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1115,6 +1146,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &865570338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865570335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9baaab78cdff42b408d6f764eea62bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackgroundMaterial: {fileID: 2100000, guid: c712a1e9120137846971e5d991e1f8ae, type: 2}
+  ScollSpeed: 0.15
 --- !u!4 &919520071 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2361874513250367669, guid: 8d76df3f28a5ed14c86e25d5f4e26676, type: 3}
