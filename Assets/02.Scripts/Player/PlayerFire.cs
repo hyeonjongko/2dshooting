@@ -31,9 +31,16 @@ public class PlayerFire : MonoBehaviour
     public float autoShoot = 0.6f;
     public float NextShoot = 0.0f;
 
+    [Header("필살기")]
+    public GameObject FinisherPrefab;
+    public float DurationTime;
+    public bool isFinisherActive = false;
+
+
+    
+
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -49,10 +56,21 @@ public class PlayerFire : MonoBehaviour
         {
             auto = false;
         }
-
-        if(auto == true)
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && !isFinisherActive)
         {
-            if(time >= NextShoot)
+            isFinisherActive = true;
+            GameObject Finisher = Instantiate(FinisherPrefab);
+            Finisher.transform.position = Vector3.zero;
+            
+        }
+        if(isFinisherActive)
+        {
+            DurationTime += Time.deltaTime;
+        }
+
+        if (auto == true)
+        {
+            if (time >= NextShoot)
             {
                 Shoot();
                 AssiShoot();

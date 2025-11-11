@@ -46,9 +46,10 @@ public class Item : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _animator.Play("HealthUp");
-        _animator.Play("SpeedUp");
-        _animator.Play("AttackSpeedUp");
+        _animator.SetTrigger("Play");
+        //_animator.Play("HealthUp",0);
+        //_animator.Play("SpeedUp", 0);
+        //_animator.Play("AttackSpeedUp", 0);
 
         time += Time.deltaTime;
         if (time >= MagnetTime)
