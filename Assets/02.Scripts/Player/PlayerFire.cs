@@ -31,9 +31,19 @@ public class PlayerFire : MonoBehaviour
     public float autoShoot = 0.6f;
     public float NextShoot = 0.0f;
 
+    [Header("필살기")]
+    public GameObject FinisherPrefab;
+    private GameObject _finisher;
+    private float _durationTime;
+    public float Reset = 0.0f;
+    private const float MaxDuration = 3.0f;
+    private bool TimeResetValue = false;
+
+
+    
+
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -49,10 +59,28 @@ public class PlayerFire : MonoBehaviour
         {
             auto = false;
         }
-
-        if(auto == true)
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && !TimeResetValue)
         {
-            if(time >= NextShoot)
+            TimeResetValue = true;
+            _finisher = Instantiate(FinisherPrefab);
+            _finisher.transform.position = Vector3.zero;
+            
+        }
+        if(TimeResetValue)
+        {
+            _durationTime += Time.deltaTime;
+            if (_durationTime > MaxDuration)
+            {
+                _durationTime = Reset;
+                Destroy(_finisher);
+                TimeResetValue = false;
+            }
+
+        }
+
+        if (auto == true)
+        {
+            if (time >= NextShoot)
             {
                 Shoot();
                 AssiShoot();
@@ -91,6 +119,7 @@ public class PlayerFire : MonoBehaviour
             autoShoot = MaxLoad;
         }
     }
+
 
     public void Shoot()
     {

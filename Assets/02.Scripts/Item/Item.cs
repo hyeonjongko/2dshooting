@@ -29,24 +29,28 @@ public class Item : MonoBehaviour
     private float _heal = 1.0f;
     private float _attackSpeed = 2.0f;
 
-    [Header("아이템 자석효관")]
+    [Header("아이템 자석효과")]
     public float time;
     public float MagnetTime = 2.0f;
     public float Speed;
     public Vector2 Direction;
 
+    [Header("아이템 획득 프리팹")]
+    public GameObject GainPrefab;
 
     void Start()
     {
         _animator = GetComponent<Animator>();
+        _animator.SetTrigger("Play");
     }
 
     // Update is called once per frame
     void Update()
     {
-        _animator.Play("HealthUp");
-        _animator.Play("SpeedUp");
-        _animator.Play("AttackSpeedUp");
+        
+        //_animator.Play("HealthUp",0);
+        //_animator.Play("SpeedUp", 0);
+        //_animator.Play("AttackSpeedUp", 0);
 
         time += Time.deltaTime;
         if (time >= MagnetTime)
@@ -61,11 +65,18 @@ public class Item : MonoBehaviour
         }
     }
 
+    private void MakeGainEffect()
+    {
+        Instantiate(GainPrefab, transform.position, Quaternion.identity);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") == false) return;
 
         Apply(other);
+
+        MakeGainEffect();
 
         Destroy(this.gameObject);
     }
