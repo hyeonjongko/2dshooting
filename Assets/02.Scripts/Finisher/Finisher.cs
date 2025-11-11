@@ -9,12 +9,11 @@ public class Finisher : MonoBehaviour
     public GameObject ParticlePrefab;
 
     [Header("데미지")]
-    private float _damage = 999999999.0f;
+    private const float _damage = 999999999.0f;
 
-    [Header("지속시간")]
-    private float MaxTime = 3.0f;
-    public float Reset = 0.0f;
-    private bool _hasSpawned = false;
+    //[Header("지속시간")]
+    //private float _maxDuration = 3.0f;
+    //private bool _hasSpawned = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,18 +29,18 @@ public class Finisher : MonoBehaviour
     {
         _animator.SetTrigger("Play");
 
-        if (!_hasSpawned)
-        {
-            //MakeParticleEffect();
-            _hasSpawned = true; // 실행 후 true로 바꿔서 다시 실행되지 않도록
-        }
+        //if (!_hasSpawned)
+        //{
+        //    //MakeParticleEffect();
+        //    _hasSpawned = true; // 실행 후 true로 바꿔서 다시 실행되지 않도록
+        //}
 
-        if (_playerFire.DurationTime > MaxTime)
-        {
-            Destroy(this.gameObject);
-            _playerFire.isFinisherActive = false;
-            _playerFire.DurationTime = Reset;
-        }
+        //if (_playerFire._durationTime > _maxDuration)
+        //{
+        //    Destroy(this.gameObject);
+        //    _playerFire.isFinisherActive = false;
+        //    _playerFire._durationTime = Reset;
+        //}
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

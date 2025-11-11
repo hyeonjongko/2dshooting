@@ -33,8 +33,11 @@ public class PlayerFire : MonoBehaviour
 
     [Header("필살기")]
     public GameObject FinisherPrefab;
-    public float DurationTime;
-    public bool isFinisherActive = false;
+    private GameObject _finisher;
+    private float _durationTime;
+    public float Reset = 0.0f;
+    private const float _maxDuration = 3.0f;
+    private bool _isFinisherActive = false;
 
 
     
@@ -56,16 +59,23 @@ public class PlayerFire : MonoBehaviour
         {
             auto = false;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && !isFinisherActive)
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && !_isFinisherActive)
         {
-            isFinisherActive = true;
-            GameObject Finisher = Instantiate(FinisherPrefab);
-            Finisher.transform.position = Vector3.zero;
+            _isFinisherActive = true;
+            _finisher = Instantiate(FinisherPrefab);
+            _finisher.transform.position = Vector3.zero;
             
         }
-        if(isFinisherActive)
+        if(_isFinisherActive)
         {
-            DurationTime += Time.deltaTime;
+            _durationTime += Time.deltaTime;
+            if (_durationTime > _maxDuration)
+            {
+                _durationTime = Reset;
+                Destroy(_finisher);
+                _isFinisherActive = false;
+            }
+
         }
 
         if (auto == true)
@@ -109,6 +119,7 @@ public class PlayerFire : MonoBehaviour
             autoShoot = MaxLoad;
         }
     }
+
 
     public void Shoot()
     {
