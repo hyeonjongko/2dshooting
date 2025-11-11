@@ -19,6 +19,8 @@ public class Item : MonoBehaviour
     //PlayerMove playerMove;
     //PlayerFire playerFire;
 
+    Animator _animator;
+
     [Header("아이템 타입")]
     public EItemType ItemType;
 
@@ -36,11 +38,16 @@ public class Item : MonoBehaviour
 
     void Start()
     {
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        _animator.Play("HealthUp");
+        _animator.Play("SpeedUp");
+        _animator.Play("AttackSpeedUp");
+
         time += Time.deltaTime;
         if (time >= MagnetTime)
         {

@@ -239,11 +239,15 @@ public class PlayerMove : MonoBehaviour
         direction.Normalize();
 
         //첫 번째 방식 : Play 메서드를 이용한 강제 적용
-        if (direction.x < 0) _animator.Play("Left");
-        if (direction.x == 0) _animator.Play("Idle");
-        if (direction.x > 0) _animator.Play("Right");
+        //if (direction.x < 0) _animator.Play("Left");
+        //if (direction.x == 0) _animator.Play("Idle");
+        //if (direction.x > 0) _animator.Play("Right");
         //장점 : 빠르게 사용하기 편하다.
-        //이 방식의 단점은 Fade, Timing, State가 무시되고, 남요오디기 쉬워서 어디서 애니메이션을 수정하는 지 알 수 없어지게된다.
+        //이 방식의 단점은 Transition, Timing, State가 무시되고, 남요오디기 쉬워서 어디서 애니메이션을 수정하는 지 알 수 없어지게된다.
+
+
+        // 두 번째 방식
+        _animator.SetInteger("X", (int)direction.x);
 
         //direction = direction.normalized; // 방법은 위와 아래의 방법 2가지가 있다.
 
