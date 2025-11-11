@@ -1,17 +1,17 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 public class BackgroundScroll : MonoBehaviour
 {
-    // ¸ñÇ¥ : ¹è°æ ½ºÅ©·ÑÀÌ µÇµµ·Ï ÇÏ°í ½Í´Ù.
-    // ÇÊ¿ä ¼Ó¼º
+    // ëª©í‘œ : ë°°ê²½ ìŠ¤í¬ë¡¤ì´ ë˜ë„ë¡ í•˜ê³  ì‹¶ë‹¤.
+    // í•„ìš” ì†ì„±
     public Material BackgroundMaterial;
     public float ScollSpeed;
     private void Update()
     {
-        // ¹æÇâÀ» ±¸ÇÑ´Ù.
+        // ë°©í–¥ì„ êµ¬í•œë‹¤.
         Vector2 direction = Vector2.up;
-        // ¿òÁ÷ÀÎ´Ù.(½ºÅ©·ÑÇÑ´Ù)
+        // ì›€ì§ì¸ë‹¤.(ìŠ¤í¬ë¡¤í•œë‹¤)
         BackgroundMaterial.mainTextureOffset += direction * ScollSpeed * Time.deltaTime;
     }
-    // - ¸ÓÅÍ¸®¾ó
-    // - ½ºÅ©·Ñ ¼Óµµ
+    // - ë¨¸í„°ë¦¬ì–¼
+    // - ìŠ¤í¬ë¡¤ ì†ë„
 }

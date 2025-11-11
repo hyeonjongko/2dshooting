@@ -273,8 +273,7 @@ MonoBehaviour:
   autoShoot: 0.6
   NextShoot: 0
   FinisherPrefab: {fileID: 2194043923278359515, guid: 8a780a124dd6b984badf889cc3f994ea, type: 3}
-  DurationTime: 0
-  isFinisherActive: 0
+  Reset: 0
 --- !u!50 &49507340
 Rigidbody2D:
   serializedVersion: 5

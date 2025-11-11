@@ -37,7 +37,7 @@ public class PlayerFire : MonoBehaviour
     private float _durationTime;
     public float Reset = 0.0f;
     private const float MaxDuration = 3.0f;
-    private bool TimeResetValue = false;
+    private bool _timeResetValue = false;
 
 
     
@@ -59,21 +59,21 @@ public class PlayerFire : MonoBehaviour
         {
             auto = false;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && !TimeResetValue)
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && !_timeResetValue)
         {
-            TimeResetValue = true;
+            _timeResetValue = true;
             _finisher = Instantiate(FinisherPrefab);
             _finisher.transform.position = Vector3.zero;
             
         }
-        if(TimeResetValue)
+        if(_timeResetValue)
         {
             _durationTime += Time.deltaTime;
             if (_durationTime > MaxDuration)
             {
                 _durationTime = Reset;
                 Destroy(_finisher);
-                TimeResetValue = false;
+                _timeResetValue = false;
             }
 
         }

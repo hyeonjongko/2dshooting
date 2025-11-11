@@ -1,16 +1,16 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Finisher : MonoBehaviour
 {
     Animator _animator;
 
-    [Header("ÆÄÆ¼Å¬ ÇÁ¸®ÆÕ")]
+    [Header("íŒŒí‹°í´ í”„ë¦¬íŒ¹")]
     public GameObject ParticlePrefab;
 
-    [Header("µ¥¹ÌÁö")]
+    [Header("ë°ë¯¸ì§€")]
     private const float Damage = 999999999.0f;
 
-    //[Header("Áö¼Ó½Ã°£")]
+    //[Header("ì§€ì†ì‹œê°„")]
     //private float MaxDuration = 3.0f;
     //private bool _hasSpawned = false;
 
