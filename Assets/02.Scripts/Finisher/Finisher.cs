@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Finisher : MonoBehaviour
 {
-    PlayerFire _playerFire;
     Animator _animator;
 
     [Header("파티클 프리팹")]
@@ -18,8 +17,6 @@ public class Finisher : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameObject playerObject = GameObject.FindWithTag("Player");
-        _playerFire = playerObject.GetComponent<PlayerFire>();
 
         _animator = GetComponent<Animator>();
     }
