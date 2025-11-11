@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     [Header("스탯")]
     public float Speed;
     public float Damage = 1.0f;
-    private float _health = 300.0f;
+    private float _health = 100.0f;
     
     public Vector2 Direction;
 
@@ -30,6 +30,9 @@ public class Enemy : MonoBehaviour
     //public float Percent = 0.7f;
 
     ItemDropper itemDropper;
+
+    [Header("폭발 프리팹")]
+    public GameObject ExplosionPrefab;
 
     void Start()
     {
@@ -83,8 +86,13 @@ public class Enemy : MonoBehaviour
             DropSpot = this.gameObject.transform.position;
             itemDropper.DropItem();
             Destroy(gameObject);
-
+            MakeExplosionEffect();
         }
+    }
+
+    private void MakeExplosionEffect()
+    {
+        Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
