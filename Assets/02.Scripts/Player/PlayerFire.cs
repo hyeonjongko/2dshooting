@@ -36,8 +36,8 @@ public class PlayerFire : MonoBehaviour
     private GameObject _finisher;
     private float _durationTime;
     public float Reset = 0.0f;
-    private const float _maxDuration = 3.0f;
-    private bool _isFinisherActive = false;
+    private const float MaxDuration = 3.0f;
+    private bool TimeResetValue = false;
 
 
     
@@ -59,21 +59,21 @@ public class PlayerFire : MonoBehaviour
         {
             auto = false;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && !_isFinisherActive)
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && !TimeResetValue)
         {
-            _isFinisherActive = true;
+            TimeResetValue = true;
             _finisher = Instantiate(FinisherPrefab);
             _finisher.transform.position = Vector3.zero;
             
         }
-        if(_isFinisherActive)
+        if(TimeResetValue)
         {
             _durationTime += Time.deltaTime;
-            if (_durationTime > _maxDuration)
+            if (_durationTime > MaxDuration)
             {
                 _durationTime = Reset;
                 Destroy(_finisher);
-                _isFinisherActive = false;
+                TimeResetValue = false;
             }
 
         }

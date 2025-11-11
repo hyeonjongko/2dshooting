@@ -41,12 +41,13 @@ public class Item : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
+        _animator.SetTrigger("Play");
     }
 
     // Update is called once per frame
     void Update()
     {
-        _animator.SetTrigger("Play");
+        
         //_animator.Play("HealthUp",0);
         //_animator.Play("SpeedUp", 0);
         //_animator.Play("AttackSpeedUp", 0);
