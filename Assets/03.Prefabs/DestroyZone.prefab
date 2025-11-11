@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6445109047893263678}
   - component: {fileID: 3255395264331945691}
   m_Layer: 6
-  m_Name: DestoryZone
+  m_Name: DestroyZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

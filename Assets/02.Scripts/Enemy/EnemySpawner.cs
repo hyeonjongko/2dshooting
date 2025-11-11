@@ -14,11 +14,14 @@ public class EnemySpawner : MonoBehaviour
     [Header("적 스포너 위치")]
     public Transform SpawnerPosition;
 
+    [Header("스폰 확률")]
+    public int SpawnPercent = 70;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // 쿨타임을 1과 2사이로 랜덤하게 지정한다.
-        float randomCoolTime = UnityEngine.Random.Range(1f, 4f);
+        float randomCoolTime = UnityEngine.Random.Range(StartTime, EndTime);
         //UnityEngine을 위에 using으로 선언해줘서 생략이 가능하지만
         //생략하면 다른 에디터의 있는 것을 사용할 수도 있어서 생략하지 않는 것을 권장한다.
         Duration = randomCoolTime;
@@ -35,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
             _time = 0f;
 
             //3. 에너미프리팹으로부터 생성
-            if (UnityEngine.Random.Range(0, 100) > 70)
+            if (UnityEngine.Random.Range(0, 100) < SpawnPercent)
             {
                 GameObject EnemySpawn = Instantiate(EnemyPrefab[(int)EEnemyType.Directional]);
                 EnemySpawn.transform.position = SpawnerPosition.position;

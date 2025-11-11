@@ -13,11 +13,8 @@ GameObject:
   - component: {fileID: 7542804511670670295}
   - component: {fileID: 4751991536798792256}
   - component: {fileID: 2722059459645459308}
-<<<<<<< Updated upstream
   - component: {fileID: 3621509716045754529}
   - component: {fileID: 8355290333536761275}
-=======
->>>>>>> Stashed changes
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -111,6 +108,7 @@ MonoBehaviour:
   Damage: 1
   Direction: {x: 0, y: 0}
   Type: 0
+  DropSpot: {x: 0, y: 0}
 --- !u!50 &4751991536798792256
 Rigidbody2D:
   serializedVersion: 5
@@ -193,7 +191,6 @@ PolygonCollider2D:
       - {x: 0.5001776, y: 0.015287161}
       - {x: 0.25509804, y: 0.44008207}
   m_UseDelaunayMesh: 0
-<<<<<<< Updated upstream
 --- !u!114 &3621509716045754529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,5 +230,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
-=======
->>>>>>> Stashed changes
