@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     [Header("스탯")]
     public float Speed;
     public float Damage = 1.0f;
-    private float _health = 300.0f;
+    private float _health = 100.0f;
     
     public Vector2 Direction;
 
@@ -30,11 +30,13 @@ public class Enemy : MonoBehaviour
     //public float Percent = 0.7f;
 
     ItemDropper itemDropper;
+    Animator _animator;
 
     void Start()
     {
         //Debug.Log(_health);
         itemDropper = GetComponent<ItemDropper>();
+        _animator = GetComponent<Animator>();
     }
 
     // 게임이 진행되고 있다는 이벤트
@@ -77,6 +79,15 @@ public class Enemy : MonoBehaviour
     public void Hit(float damage)
     {
         _health -= damage;
+
+        if (Type == EEnemyType.Directional)
+        {
+            _animator.SetTrigger("EnemyAnim");
+        }
+        else if (Type == EEnemyType.Trace)
+        {
+            _animator.SetTrigger("TraceEnemyAnim");
+        }
 
         if (_health <= 0)
         {
