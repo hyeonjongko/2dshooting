@@ -84,16 +84,29 @@ public class Enemy : MonoBehaviour
     {
         _animator.SetTrigger("Hit");
         _health -= damage;
-
         if (_health <= 0)
         {
-            DropSpot = this.gameObject.transform.position;
-            _itemDropper.DropItem();
-            Destroy(gameObject);
-            MakeExplosionEffect();
+            Death();
         }
     }
 
+    private void Death()
+    {
+        DropSpot = this.gameObject.transform.position;
+        _itemDropper.DropItem();
+        MakeExplosionEffect();
+
+        ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
+        scoreManager.AddScore(100); //todo : 매직넘버 수정
+
+        //응집도를 높혀라
+        //응집도 : '데이터'와 '데이터를 조작하는 로직'이 얼마나 잘 모여있나
+        //응집도를 높이고, 필요한 것만 외부레 공개하는 것을 '캡슐화'
+        //scoreManager._currentScoreTextUI.text = $"현재 점수 : {ScoreManager.CurrentScore}";
+
+        Destroy(gameObject);
+
+    }
     private void MakeExplosionEffect()
     {
         Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
