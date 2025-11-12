@@ -32,17 +32,19 @@ public class Enemy : MonoBehaviour
     [Header("폭발 프리팹")]
     public GameObject ExplosionPrefab;
 
-    private int _defaultScore = 100;
+    [SerializeField] private int _defaultScore = 100;
 
 
     ItemDropper _itemDropper;
     private Animator _animator;
+    ScoreManager _scoreManager;
 
     void Start()
     {
         //Debug.Log(_health);
         _itemDropper = GetComponent<ItemDropper>();
         _animator = GetComponent<Animator>();
+        _scoreManager = FindAnyObjectByType<ScoreManager>();
     }
 
     // 게임이 진행되고 있다는 이벤트
@@ -98,8 +100,8 @@ public class Enemy : MonoBehaviour
         _itemDropper.DropItem();
         MakeExplosionEffect();
 
-        ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
-        scoreManager.AddScore(_defaultScore); 
+
+        _scoreManager.AddScore(_defaultScore); 
 
         //응집도를 높혀라
         //응집도 : '데이터'와 '데이터를 조작하는 로직'이 얼마나 잘 모여있나

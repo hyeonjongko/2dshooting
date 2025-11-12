@@ -8,11 +8,11 @@ public class ScoreManager : MonoBehaviour
     // 필요 속성
     // - 현재 점수 UI(Text 컴포넌트) (규칙 : UI 요소는 항상 변수명 뒤에 UI 붙인다.)
     [SerializeField] private Text _currentScoreTextUI; //[SerializeField] : 필드를 유니티가 알 수 있도록 직렬화
-    [SerializeField] private Text _bestscoreTextUI;
+    [SerializeField] private Text _bestScoreTextUI;
     // - 현재 점수를 기억할 변수
     private int _currentScore = 0;
     private int _startScore = 0;
-    private const string ScoreKey = "Score";
+    //private const string ScoreKey = "Score";
 
     [Header("최고 점수 ")]
     private int _bestScore = 0;
@@ -22,9 +22,6 @@ public class ScoreManager : MonoBehaviour
     private Animator _scoreAnimator;
     private float _lastAnimTime = 0f;
     private const float ANIM_COOLDOWN = 0.05f;
-    //private float _time;
-    //private float _scaleAmount = 1.3f;
-    //private Vector2 _originalScale;
     void Start()
     {
         _scoreAnimator = _currentScoreTextUI.GetComponent<Animator>();
@@ -34,9 +31,6 @@ public class ScoreManager : MonoBehaviour
         Refresh();
     }
 
-    void Update()
-    {
-    }
 
     //public void ScaleUp()
     //{
@@ -49,6 +43,11 @@ public class ScoreManager : MonoBehaviour
         if (score < 0) return;
 
         _currentScore += score;
+
+        if (_currentScore > _bestScore)
+        {
+            _bestScore = _currentScore;
+        }
 
         // 일정 시간이 지났을 때만 애니메이션 재생
         if (Time.time - _lastAnimTime >= ANIM_COOLDOWN)
@@ -68,19 +67,19 @@ public class ScoreManager : MonoBehaviour
         //=> :N0가 있다
         _currentScoreTextUI.text = $"현재 점수 : {_currentScore:N0}";
         _bestscoreTextUI.text = $"최고 점수 : {_bestScore:N0}";
-        if (_currentScore >= _bestScore)
-        {
-            _bestscoreTextUI.text = $"최고 점수 : {_currentScore:N0}";
-        }
+        //if (_currentScore >= _bestScore)
+        //{
+        //    _bestscoreTextUI.text = $"최고 점수 : {_currentScore:N0}";
+        //}
 
     }
 
     private void Save()
     {
-        if (_currentScore > _bestScore)
-        {
-            _bestScore = _currentScore;
-        }
+        //if (_currentScore > _bestScore)
+        //{
+        //    _bestScore = _currentScore;
+        //}
         PlayerPrefs.SetInt(BestScoreKey, _bestScore);
         
     }
