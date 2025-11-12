@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
@@ -18,11 +19,15 @@ public class ScoreManager : MonoBehaviour
     private const string BestScoreKey = "BestScore";
 
     [Header("Text 애니메이션")]
-    private float _time;
-    private float _scaleAmount = 1.3f;
-    private Vector2 _originalScale;
+    private Animator _scoreAnimator;
+    private float _lastAnimTime = 0f;
+    private const float ANIM_COOLDOWN = 0.05f;
+    //private float _time;
+    //private float _scaleAmount = 1.3f;
+    //private Vector2 _originalScale;
     void Start()
     {
+        _scoreAnimator = _currentScoreTextUI.GetComponent<Animator>();
         _currentScore = _startScore;
 
         Load();
@@ -33,11 +38,11 @@ public class ScoreManager : MonoBehaviour
     {
     }
 
-    public void ScaleUp()
-    {
-        _currentScoreTextUI.transform.localScale *= _scaleAmount;
-        _currentScoreTextUI.rectTransform.localScale *= _scaleAmount;
-    }
+    //public void ScaleUp()
+    //{
+    //    _currentScoreTextUI.transform.localScale *= _scaleAmount;
+    //    _currentScoreTextUI.rectTransform.localScale *= _scaleAmount;
+    //}
     //1. 하나의 메서드는 하나의 일만 잘 하면 된다.
     public void AddScore(int score)
     {
@@ -45,8 +50,12 @@ public class ScoreManager : MonoBehaviour
 
         _currentScore += score;
 
-        ScaleUp();
-
+        // 일정 시간이 지났을 때만 애니메이션 재생
+        if (Time.time - _lastAnimTime >= ANIM_COOLDOWN)
+        {
+            _scoreAnimator.SetTrigger("Gain");
+            _lastAnimTime = Time.time;
+        }
 
         Refresh();
         
