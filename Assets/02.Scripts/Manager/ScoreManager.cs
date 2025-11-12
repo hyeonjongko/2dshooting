@@ -70,6 +70,11 @@ public class ScoreManager : MonoBehaviour
         //if (_currentScore >= _bestScore)
         //{
         //    _bestScoreTextUI.text = $"최고 점수 : {_currentScore:N0}";
+
+        _bestScoreTextUI.text = $"최고 점수 : {_bestScore:N0}";
+        //if (_currentScore >= _bestScore)
+        //{
+        //    _bestscoreTextUI.text = $"최고 점수 : {_currentScore:N0}";
         //}
 
     }
