@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text _currentScoreTextUI; //[SerializeField] : 필드를 유니티가 알 수 있도록 직렬화
     // - 현재 점수를 기억할 변수
     private int _currentscore = 0;
-    public int CurrentScore => _currentscore;
+    //public int CurrentScore => _currentscore;
     void Start()
     {
         Refresh();
@@ -24,7 +24,8 @@ public class ScoreManager : MonoBehaviour
 
     private void Refresh()
     {
-        _currentScoreTextUI.text = $"현재 점수 : {_currentscore}";
+        _currentScoreTextUI.text = $"현재 점수 : {_currentscore.ToString("#,##0")}";
+        //_currentscore.ToString("#,##0") int를 세자리에 한번씩 ,를 찍는 방법
     }
     // Update is called once per frame
     void Update()
