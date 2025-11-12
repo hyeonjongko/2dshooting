@@ -39,6 +39,9 @@ public class PlayerFire : MonoBehaviour
     private const float MaxDuration = 3.0f;
     private bool _timeResetValue = false;
 
+    [Header("사운드")]
+    public AudioSource FireSound;
+
 
     
 
@@ -91,6 +94,7 @@ public class PlayerFire : MonoBehaviour
         }
         else if (auto == false && Input.GetKeyDown(KeyCode.Space))
         {
+            FireSound.Play();
             if (Count == 0)
             {
                 Count = 1;

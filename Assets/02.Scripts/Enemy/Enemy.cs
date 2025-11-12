@@ -32,15 +32,19 @@ public class Enemy : MonoBehaviour
     [Header("폭발 프리팹")]
     public GameObject ExplosionPrefab;
 
+    [SerializeField] private int _defaultScore = 100;
+
 
     ItemDropper _itemDropper;
     private Animator _animator;
+    ScoreManager _scoreManager;
 
     void Start()
     {
         //Debug.Log(_health);
         _itemDropper = GetComponent<ItemDropper>();
         _animator = GetComponent<Animator>();
+        _scoreManager = FindAnyObjectByType<ScoreManager>();
     }
 
     // 게임이 진행되고 있다는 이벤트
@@ -84,16 +88,29 @@ public class Enemy : MonoBehaviour
     {
         _animator.SetTrigger("Hit");
         _health -= damage;
-
         if (_health <= 0)
         {
-            DropSpot = this.gameObject.transform.position;
-            _itemDropper.DropItem();
-            Destroy(gameObject);
-            MakeExplosionEffect();
+            Death();
         }
     }
 
+    private void Death()
+    {
+        DropSpot = this.gameObject.transform.position;
+        _itemDropper.DropItem();
+        MakeExplosionEffect();
+
+
+        _scoreManager.AddScore(_defaultScore); 
+
+        //응집도를 높혀라
+        //응집도 : '데이터'와 '데이터를 조작하는 로직'이 얼마나 잘 모여있나
+        //응집도를 높이고, 필요한 것만 외부레 공개하는 것을 '캡슐화'
+        //scoreManager._currentScoreTextUI.text = $"현재 점수 : {ScoreManager.CurrentScore}";
+
+        Destroy(gameObject);
+
+    }
     private void MakeExplosionEffect()
     {
         Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);

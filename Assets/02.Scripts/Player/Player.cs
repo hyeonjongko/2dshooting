@@ -1,8 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [Header("»óÅÂ")]
+    [Header("ìƒíƒœ")]
     private float _health = 3;
     public void Hit(float damage)
     {
