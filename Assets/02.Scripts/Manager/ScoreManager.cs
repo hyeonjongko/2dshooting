@@ -16,20 +16,38 @@ public class ScoreManager : MonoBehaviour
     [Header("최고 점수 ")]
     private int _bestScore = 0;
     private const string BestScoreKey = "BestScore";
+
+    [Header("Text 애니메이션")]
+    private float _time;
+    private float _scaleAmount = 1.3f;
+    private Vector2 _originalScale;
     void Start()
     {
         _currentScore = _startScore;
+
         Load();
         Refresh();
     }
 
+    void Update()
+    {
+    }
+
+    public void ScaleUp()
+    {
+        _currentScoreTextUI.transform.localScale *= _scaleAmount;
+        _currentScoreTextUI.rectTransform.localScale *= _scaleAmount;
+    }
     //1. 하나의 메서드는 하나의 일만 잘 하면 된다.
     public void AddScore(int score)
     {
         if (score < 0) return;
 
         _currentScore += score;
-        
+
+        ScaleUp();
+
+
         Refresh();
         
         Save();
