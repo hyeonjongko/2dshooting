@@ -32,6 +32,8 @@ public class Enemy : MonoBehaviour
     [Header("폭발 프리팹")]
     public GameObject ExplosionPrefab;
 
+    private int _defaultScore = 100;
+
 
     ItemDropper _itemDropper;
     private Animator _animator;
@@ -97,7 +99,7 @@ public class Enemy : MonoBehaviour
         MakeExplosionEffect();
 
         ScoreManager scoreManager = FindAnyObjectByType<ScoreManager>();
-        scoreManager.AddScore(100); //todo : 매직넘버 수정
+        scoreManager.AddScore(_defaultScore); 
 
         //응집도를 높혀라
         //응집도 : '데이터'와 '데이터를 조작하는 로직'이 얼마나 잘 모여있나

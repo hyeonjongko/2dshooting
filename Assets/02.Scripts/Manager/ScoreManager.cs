@@ -7,12 +7,18 @@ public class ScoreManager : MonoBehaviour
     // 필요 속성
     // - 현재 점수 UI(Text 컴포넌트) (규칙 : UI 요소는 항상 변수명 뒤에 UI 붙인다.)
     [SerializeField] private Text _currentScoreTextUI; //[SerializeField] : 필드를 유니티가 알 수 있도록 직렬화
+    [SerializeField] private Text _bestscoreTextUI;
     // - 현재 점수를 기억할 변수
-    private int _currentscore = 0;
-    //public int CurrentScore => _currentscore;
+    private int _currentScore = 0;
+    private int _startScore = 0;
     private const string ScoreKey = "Score";
+
+    [Header("최고 점수 ")]
+    private int _bestScore = 0;
+    private const string BestScoreKey = "BestScore";
     void Start()
     {
+        _currentScore = _startScore;
         Load();
         Refresh();
     }
@@ -22,7 +28,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (score < 0) return;
 
-        _currentscore += score;
+        _currentScore += score;
         
         Refresh();
         
@@ -31,17 +37,29 @@ public class ScoreManager : MonoBehaviour
 
     private void Refresh()
     {
-        _currentScoreTextUI.text = $"현재 점수 : {_currentscore:N0}";
-        //_currentscore.ToString("#,##0") int를 세자리에 한번씩 ,를 찍는 방법
+        //_currentScore.ToString("#,##0") int를 세자리에 한번씩 ,를 찍는 방법
+        //=> :N0가 있다
+        _currentScoreTextUI.text = $"현재 점수 : {_currentScore:N0}";
+        _bestscoreTextUI.text = $"최고 점수 : {_bestScore:N0}";
+        if (_currentScore >= _bestScore)
+        {
+            _bestscoreTextUI.text = $"최고 점수 : {_currentScore:N0}";
+        }
+
     }
 
     private void Save()
     {
-        PlayerPrefs.SetInt(ScoreKey, _currentscore);
+        if (_currentScore > _bestScore)
+        {
+            _bestScore = _currentScore;
+        }
+        PlayerPrefs.SetInt(BestScoreKey, _bestScore);
+        
     }
     private void Load()
     {
-        _currentscore = PlayerPrefs.GetInt(ScoreKey, 0);
+        _bestScore = PlayerPrefs.GetInt(BestScoreKey, _startScore);
     }
     
     //private void TestSave()
@@ -52,7 +70,7 @@ public class ScoreManager : MonoBehaviour
     //    //저장 :Set
     //    //로드 : Get
 
-    //    PlayerPrefs.SetInt("age", _currentscore);
+    //    PlayerPrefs.SetInt("age", _currentScore);
     //    PlayerPrefs.SetString("name", "김홍일");
     //    Debug.Log("저장됐습니다.");
     //}
