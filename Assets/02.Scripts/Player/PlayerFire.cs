@@ -133,8 +133,8 @@ public class PlayerFire : MonoBehaviour
         //// 유니티에서 게임 오브젝트를 생성할때는 new가 Instantiate라는 메서드를 이용한다.
         ////클래스 -> 객체(속성 + 기능) -> 메모리에 로드된 객체를 인스턴스
         ////                           ㄴ> 인스턴스화
-        //GameObject Leftbullet = Instantiate(BulletPrefab);
-        //GameObject Rightbullet = Instantiate(BulletPrefab);
+        //GameObject Leftbullet = Instantiate(_bulletPrefab);
+        //GameObject Rightbullet = Instantiate(_bulletPrefab);
         ////3. 총알의 위치를 총구 위치로 바꾸기 
         //Leftbullet.transform.position = LeftFirePosition.position;//생성 후 위치 수정(this는 생략가능)
         //Rightbullet.transform.position = RightFirePosition.position;
