@@ -36,9 +36,10 @@ public class PlayerFire : MonoBehaviour
 
     [Header("사운드")]
     public AudioSource FireSound;
+    public AudioSource FinisherSound;
 
 
-    
+
 
     void Start()
     {
@@ -62,6 +63,7 @@ public class PlayerFire : MonoBehaviour
             _timeResetValue = true;
             _finisher = Instantiate(FinisherPrefab);
             _finisher.transform.position = Vector3.zero;
+            FinisherSound.Play();
             
         }
         if(_timeResetValue)

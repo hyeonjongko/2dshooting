@@ -39,6 +39,9 @@ public class Enemy : MonoBehaviour
     private Animator _animator;
     ScoreManager _scoreManager;
 
+    [Header("사운드")]
+    public AudioClip EnemyExplosionSound;
+
     void Start()
     {
         //Debug.Log(_health);
@@ -91,6 +94,7 @@ public class Enemy : MonoBehaviour
         _health -= damage;
         if (_health <= 0)
         {
+            SoundManager.Instance.PlaySound(EnemyExplosionSound);
             Death();
         }
     }

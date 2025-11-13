@@ -38,6 +38,9 @@ public class Item : MonoBehaviour
     [Header("아이템 획득 프리팹")]
     public GameObject GainPrefab;
 
+    [Header("사운드")]
+    public AudioClip ItemGainSound;
+
     void Start()
     {
         _animator = GetComponent<Animator>();
@@ -77,6 +80,8 @@ public class Item : MonoBehaviour
         Apply(other);
 
         MakeGainEffect();
+
+        SoundManager.Instance.PlaySound(ItemGainSound);
 
         Destroy(this.gameObject);
     }
