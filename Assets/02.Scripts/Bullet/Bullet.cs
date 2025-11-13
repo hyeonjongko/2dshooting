@@ -69,10 +69,7 @@ public class Bullet : MonoBehaviour
         //    enemy._health -= Damage;
         //}
 
-        //삭제를 하지 않고 비활성화
-        gameObject.SetActive(false);
-        //Destroy(this.gameObject);
-
+        Destroy(this.gameObject);
         //Destroy(other.gameObject);
 
         //Debug.Log(enemy._health);
