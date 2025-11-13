@@ -9,21 +9,7 @@ public class ScoreManager : MonoBehaviour
     //만약에 접근해야하는 곳이 2개 이상이라면 랜덤으로 하나가 접근된다.
     //게임 개발에서는 Manager(관리자) 클래스를 보통 싱글톤 패턴으로 사용하는 것이 관행이다.
     //관리자라는 이름을 가지고 있는 것들만 싱글톤을 사용하는 것을 권장
-    private static ScoreManager _instance = null;
 
-    public static ScoreManager Instance => _instance;
-
-    //인스턴스가 이미 생성(참조)된게 있다면
-    //후발주자들은 삭제해버린다.
-    private void Awake()
-    {
-        if(_instance != null)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-        _instance = this; //this는 ScoreManager을 가리킨다.
-    }
 
     // 목표 : 적을 죽일 때마다 점수를 올리고, 현재 점수를 UI에 표시하고 싶다.
     // 필요 속성
