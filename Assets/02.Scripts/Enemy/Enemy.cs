@@ -118,7 +118,8 @@ public class Enemy : MonoBehaviour
         //응집도를 높이고, 필요한 것만 외부레 공개하는 것을 '캡슐화'
         //scoreManager._currentScoreTextUI.text = $"현재 점수 : {ScoreManager.CurrentScore}";
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
 
     }
     private void MakeExplosionEffect()
@@ -136,7 +137,8 @@ public class Enemy : MonoBehaviour
 
         player.Hit(Damage);
 
-        Destroy(gameObject);    // 나죽자.
+        gameObject.SetActive(false);
+        //Destroy(gameObject);    // 나죽자.
 
         //if (other.CompareTag("Player") == false) return;
 

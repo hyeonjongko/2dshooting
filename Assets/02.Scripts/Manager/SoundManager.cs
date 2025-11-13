@@ -1,19 +1,19 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
-    public AudioSource effectSource; //È¿°úÀ½ Àç»ı¿ë AudioSource
+    public AudioSource effectSource; //íš¨ê³¼ìŒ ì¬ìƒìš© AudioSource
 
     private void Awake()
     {
         Instance = this;
     }
     
-    // ¿ÜºÎ¿¡¼­ »ç¿îµå¸¦ Àç»ıÇÏ°í ½ÍÀ» ¶§ »ç¿ëÇÏ´Â ÇÔ¼ö
+    // ì™¸ë¶€ì—ì„œ ì‚¬ìš´ë“œë¥¼ ì¬ìƒí•˜ê³  ì‹¶ì„ ë•Œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
     public void PlaySound(AudioClip clip)
     {
-         // PlayOneShotÀº ¿©·¯ ¼Ò¸®¸¦ µ¿½Ã¿¡ Àç»ıÇÒ ¼ö ÀÖÀ½
+         // PlayOneShotì€ ì—¬ëŸ¬ ì†Œë¦¬ë¥¼ ë™ì‹œì— ì¬ìƒí•  ìˆ˜ ìˆìŒ
         effectSource.PlayOneShot(clip);
     }
 }

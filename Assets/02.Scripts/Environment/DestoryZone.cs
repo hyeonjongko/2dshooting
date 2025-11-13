@@ -20,6 +20,11 @@ public class DestoryZone : MonoBehaviour
             other.gameObject.SetActive(false);
             return;
         }
+        if(other.CompareTag("Enemy"))
+        {
+            other.gameObject.SetActive(false);
+            return;
+        }
         Destroy(other.gameObject);
     }
 
