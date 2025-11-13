@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
 
     //Player player;
     //PlayerMove playerMove;
-    //PlayerFire playerFire;
+    //PlayerFire _playerFire;
 
     Animator _animator;
 
