@@ -82,8 +82,7 @@ public class PlayerFire : MonoBehaviour
         {
             if (time >= NextShoot)
             {
-                Shoot();
-                AssiShoot();
+                Fire();
 
                 NextShoot = time + autoShoot;
             }
@@ -91,14 +90,12 @@ public class PlayerFire : MonoBehaviour
         }
         else if (auto == false && Input.GetKeyDown(KeyCode.Space))
         {
-            FireSound.Play();
             if (Count == 0)
             {
                 Count = 1;
                 Ptime = time;
 
-                Shoot();
-                AssiShoot();
+                Fire();
             }
         }
         if (Count == 1 && time >= Ptime + Load)
@@ -106,7 +103,12 @@ public class PlayerFire : MonoBehaviour
             Count = 0;
         }
     }
-
+    public void Fire()
+    {
+        FireSound.Play();
+        Shoot();
+        AssiShoot();
+    }
     public void AttackSpeedUp(float value)
     {
         Load /= value;
