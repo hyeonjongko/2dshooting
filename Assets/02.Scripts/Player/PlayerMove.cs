@@ -1,12 +1,14 @@
-﻿using UnityEngine;
-using UnityEngine.UIElements;
+﻿using System;
+using UnityEngine;
 
 //플레이어 이동
 public class PlayerMove : MonoBehaviour
 {
-    PlayerFire playerFire;
+    PlayerFire _playerFire;
 
     private Animator _animator;
+    Enemy _enemy;
+
     //목표
     //"키보드 입력"에 따라 "방향"을 구하고 그 방향으로 이동시키고 싶다
 
@@ -57,13 +59,18 @@ public class PlayerMove : MonoBehaviour
     private float findTimer = 0f;               // 탐색 타이머
 
 
+    [Header("자동 시야")]
+    public float RotateSpeed = 5f;
+
 
     //게임 오브젝트가 게임을 시작할 때
     void Start()
     {
-        playerFire = GetComponent<PlayerFire>();
+        _playerFire = GetComponent<PlayerFire>();
 
         _animator = GetComponent<Animator>();
+
+       
 
         //처음 시작 위치 저장
         _origin = transform.position;
@@ -78,14 +85,16 @@ public class PlayerMove : MonoBehaviour
     // 게임 오브젝트가 게임을 시작 후 최대한 많이
     void Update()
     {
-        if (playerFire.auto == true)
+        if (_playerFire.auto == true)
         {
             AutoMove();
+            AutoSight();
         }
         else
         {
 
             PassMode();
+            AutoSight();
         }
 
         _speed = Mathf.Clamp(_speed, MinSpeed, MaxSpeed);
@@ -93,6 +102,51 @@ public class PlayerMove : MonoBehaviour
         if (Count == 0)
         {
             Destroy(this.gameObject);
+        }
+    }
+
+    public void AutoSight()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        GameObject nearestEnemy = null; // 가장 가까운 적 찾기
+        float nearestDistance = Mathf.Infinity; //무한의 양수
+
+        foreach (GameObject enemy in enemies)
+        {
+            _enemy = enemy.GetComponent<Enemy>();
+            if (_enemy.Type == EEnemyType.Trace)
+            {
+                float distance = Vector2.Distance(enemy.transform.position, this.transform.position);
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestEnemy = enemy;
+                }
+            }
+        }
+        if (nearestEnemy != null)
+        {
+            Vector2 dir = nearestEnemy.transform.position - this.transform.position;
+            //Mathf.Rad2Deg : 라디안을 도로 변환하는 상수
+            //90을 빼주는 이유
+            //-> 혹시 “플레이어가 반대로 뒤집히거나 180도 틀어지는” 현상이 있다면,
+            //스프라이트 방향이 오른쪽이 아닌 왼쪽 기준일 가능성이 높습니다.
+            //이럴 땐 angle 계산 부분에 보정값을 더하거나 빼면 됩니다.
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+            //오일러 각(x, y, z 회전 각도)을 입력받아 쿼터니언(Quaternion) 형태의 회전 값을 생성하는 함수
+            this.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+            //Quaternion targetRotation = Quaternion.Euler(0f, 0f, angle);
+            //this.transform.rotation = Quaternion.Lerp(
+            //    this.transform.rotation,
+            //    targetRotation,
+            //    Time.deltaTime * rotateSpeed
+            //);
+        }
+        else
+        {
+            this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
     }
     public void AutoMove()

@@ -7,6 +7,8 @@ public class Finisher : MonoBehaviour
     [Header("파티클 프리팹")]
     public GameObject ParticlePrefab;
 
+    
+
     [Header("데미지")]
     private const float Damage = 999999999.0f;
 

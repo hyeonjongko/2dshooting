@@ -172,6 +172,7 @@ MonoBehaviour:
   Speed: 2
   Direction: {x: 0, y: 0}
   GainPrefab: {fileID: 2708598583397607911, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}
+  ItemGainSound: {fileID: 8300000, guid: 1fb38a2d583b6504285a84a9948a2987, type: 3}
 --- !u!95 &-8462457037822762936
 Animator:
   serializedVersion: 7

@@ -39,12 +39,16 @@ public class Enemy : MonoBehaviour
     private Animator _animator;
     ScoreManager _scoreManager;
 
+    [Header("사운드")]
+    public AudioClip EnemyExplosionSound;
+
     void Start()
     {
         //Debug.Log(_health);
         _itemDropper = GetComponent<ItemDropper>();
         _animator = GetComponent<Animator>();
         _scoreManager = FindAnyObjectByType<ScoreManager>();
+        
     }
 
     // 게임이 진행되고 있다는 이벤트
@@ -90,6 +94,7 @@ public class Enemy : MonoBehaviour
         _health -= damage;
         if (_health <= 0)
         {
+            SoundManager.Instance.PlaySound(EnemyExplosionSound);
             Death();
         }
     }
@@ -100,7 +105,12 @@ public class Enemy : MonoBehaviour
         _itemDropper.DropItem();
         MakeExplosionEffect();
 
+        //점수 관리자는 인스턴스가 하나다. 혹은 하나임을 보장해야 한다.
+        //아무대서나 빠르게 접근하고 싶다.
+        //싱글톤 패턴
 
+        //관리자(Manager) -> 관리자의 인스턴스(객체)는 보통 하나입니다.
+        //ScoreManager.Instance.AddScore(_defaultScore);
         _scoreManager.AddScore(_defaultScore); 
 
         //응집도를 높혀라
@@ -108,7 +118,8 @@ public class Enemy : MonoBehaviour
         //응집도를 높이고, 필요한 것만 외부레 공개하는 것을 '캡슐화'
         //scoreManager._currentScoreTextUI.text = $"현재 점수 : {ScoreManager.CurrentScore}";
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
 
     }
     private void MakeExplosionEffect()
@@ -126,7 +137,8 @@ public class Enemy : MonoBehaviour
 
         player.Hit(Damage);
 
-        Destroy(gameObject);    // 나죽자.
+        gameObject.SetActive(false);
+        //Destroy(gameObject);    // 나죽자.
 
         //if (other.CompareTag("Player") == false) return;
 
