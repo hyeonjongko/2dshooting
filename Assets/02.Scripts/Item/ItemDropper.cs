@@ -29,9 +29,8 @@ public class ItemDropper : MonoBehaviour
     {
 
     }
-    public void DropItem()
+    public void DropItem(Vector3 position)
     {
-        GameObject EnemyObject = GameObject.FindWithTag("Enemy");
         // 50% 확률로 리턴
         if (Random.Range(0, 2) == 0) return;
 
@@ -65,7 +64,7 @@ public class ItemDropper : MonoBehaviour
             {
                 //아이템 생성 break로 아이템 하나가 생성되면 중지(안하면 아이템 3개가 동시 생성)
                 //Quaternion.identity : 회전값이 없다는걸 나타냄
-                Instantiate(ItemPrefab[i], EnemyObject.transform.position, Quaternion.identity);
+                Instantiate(ItemPrefab[i], position, Quaternion.identity);
                 break;
             }
         }

@@ -62,6 +62,9 @@ public class PlayerMove : MonoBehaviour
     [Header("자동 시야")]
     public float RotateSpeed = 5f;
 
+    [Header("조이스틱")]
+    public Joystick joystick;
+
 
     //게임 오브젝트가 게임을 시작할 때
     void Start()
@@ -234,8 +237,10 @@ public class PlayerMove : MonoBehaviour
         //float h = Input.GetAxis("Horizontal");    // 수평 입력에 대한 값을 -1 ~ 1로 가져온다
         //float v = Input.GetAxis("Vertical");      // 수직 입력에 대한 값을 -1 ~ 1로 가져온다
 
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = joystick.Horizontal;
+        float v = joystick.Vertical;
+        //float h = Input.GetAxisRaw("Horizontal");
+        //float v = Input.GetAxisRaw("Vertical");
 
 
         //GetAxisRaw : -1, 0, 1의 값을 반환

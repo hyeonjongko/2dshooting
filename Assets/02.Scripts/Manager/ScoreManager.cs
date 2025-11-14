@@ -21,6 +21,7 @@ public class ScoreManager : MonoBehaviour
     private int _startScore = 0;
     //private const string ScoreKey = "Score";
 
+
     [Header("최고 점수 ")]
     private int _bestScore = 0;
     private const string BestScoreKey = "BestScore";
@@ -29,6 +30,16 @@ public class ScoreManager : MonoBehaviour
     private Animator _scoreAnimator;
     private float _lastAnimTime = 0f;
     private const float ANIM_COOLDOWN = 0.05f;
+
+    // Pet용 이벤트 (1000, 2000, 3000)
+    public static event System.Action<int> OnScoreThousand;
+
+    // Boss용 이벤트 (5000)
+    public static event System.Action OnBossScoreReached;
+
+    [Header("스폰 이벤트")]
+    private int _maxCount = 5;
+    private bool _bossEventTriggered = false;
     void Start()
     {
         _scoreAnimator = _currentScoreTextUI.GetComponent<Animator>();
@@ -38,18 +49,24 @@ public class ScoreManager : MonoBehaviour
         Refresh();
     }
 
-
-    //public void ScaleUp()
-    //{
-    //    _currentScoreTextUI.transform.localScale *= _scaleAmount;
-    //    _currentScoreTextUI.rectTransform.localScale *= _scaleAmount;
-    //}
+    
     //1. 하나의 메서드는 하나의 일만 잘 하면 된다.
     public void AddScore(int score)
     {
         if (score < 0) return;
 
+        int previousScore = _currentScore;
         _currentScore += score;
+
+        // 1000단위를 넘어갔는지 체크
+        int currentThousand = _currentScore / 1000;
+        int previousThousand = previousScore / 1000;
+
+        // 천 단위가 증가했고, 3000 이하일 때만
+        if (currentThousand > previousThousand && currentThousand <= _maxCount)
+        {
+            OnScoreThousand?.Invoke(currentThousand);
+        }
 
         if (_currentScore > _bestScore)
         {
@@ -62,6 +79,8 @@ public class ScoreManager : MonoBehaviour
             _scoreAnimator.SetTrigger("Gain");
             _lastAnimTime = Time.time;
         }
+
+
 
         Refresh();
         
