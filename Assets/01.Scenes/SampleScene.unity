@@ -2192,7 +2192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f821bd2c43beb40921a08f9527019b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectSource: {fileID: 1680268906}
+  _effectSource: {fileID: 1680268906}
 --- !u!4 &1680268908
 Transform:
   m_ObjectHideFlags: 0
