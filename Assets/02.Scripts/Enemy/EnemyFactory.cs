@@ -2,8 +2,8 @@
 
 public class EnemyFactory : MonoBehaviour
 {
-    private static EnemyFactory _instance = null;
-    public static EnemyFactory Instance => _instance;
+    private static EnemyFactory s_instance = null;
+    public static EnemyFactory Instance => s_instance;
 
     [Header("적 프리팹")]
     [SerializeField] private GameObject _enemyPrefab;
@@ -16,12 +16,12 @@ public class EnemyFactory : MonoBehaviour
 
     private void Awake()
     {
-        if( _instance != null )
+        if( s_instance != null )
         {
             Destroy(this.gameObject);
             return;
         }
-        _instance = this;
+        s_instance = this;
 
         PoolInit();
     }

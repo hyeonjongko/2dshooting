@@ -62,7 +62,7 @@ public class PlayerMove : MonoBehaviour
 
 
     [Header("자동 시야")]
-    public float rotateSpeed = 5f;
+    public float RotateSpeed = 5f;
 
 
     //게임 오브젝트가 게임을 시작할 때

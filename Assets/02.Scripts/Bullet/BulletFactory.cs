@@ -3,9 +3,9 @@ using UnityEngine.UIElements;
 
 public class BulletFactory : MonoBehaviour
 {
-    private static BulletFactory _instance = null;
+    private static BulletFactory s_instance = null;
 
-    public static BulletFactory Instance => _instance;
+    public static BulletFactory Instance => s_instance;
 
     //인스턴스가 이미 생성(참조)된게 있다면
     //후발주자들은 삭제해버린다.
@@ -25,12 +25,12 @@ public class BulletFactory : MonoBehaviour
     {
         // 인스턴스가 이미 생성(참조)된게 있다면
         // 후발주자들은 삭제해버린다.
-        if (_instance != null)
+        if (s_instance != null)
         {
             Destroy(this.gameObject);
             return;
         }
-        _instance = this; //this는 BulletFactory를 가리킨다.
+        s_instance = this; //this는 BulletFactory를 가리킨다.
 
         PoolInit();
     }

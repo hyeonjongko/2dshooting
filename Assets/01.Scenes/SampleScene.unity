@@ -248,7 +248,7 @@ MonoBehaviour:
   safeDistanceY: 1
   evadeSpeedMultiplier: 1.5
   neutralZone: 1
-  rotateSpeed: 5
+  RotateSpeed: 5
 --- !u!114 &49507339
 MonoBehaviour:
   m_ObjectHideFlags: 0
