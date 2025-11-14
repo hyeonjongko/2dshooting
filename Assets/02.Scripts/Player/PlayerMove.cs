@@ -1,7 +1,5 @@
 ﻿using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 //플레이어 이동
 public class PlayerMove : MonoBehaviour
