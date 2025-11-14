@@ -15,7 +15,7 @@ public class Item : MonoBehaviour
     //스피드를 +N 해준다.
     //나를 삭제한다.
 
-    //Player player;
+    //Player _player;
     //PlayerMove playerMove;
     //PlayerFire _playerFire;
 

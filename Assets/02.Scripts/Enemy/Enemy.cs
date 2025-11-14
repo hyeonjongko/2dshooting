@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
 
 
     ItemDropper _itemDropper;
-    private Animator _animator;
+    Animator _animator;
     ScoreManager _scoreManager;
 
     [Header("사운드")]
@@ -102,7 +102,7 @@ public class Enemy : MonoBehaviour
     private void Death()
     {
         DropSpot = this.gameObject.transform.position;
-        _itemDropper.DropItem();
+        _itemDropper.DropItem(DropSpot);
         MakeExplosionEffect();
 
         //점수 관리자는 인스턴스가 하나다. 혹은 하나임을 보장해야 한다.
