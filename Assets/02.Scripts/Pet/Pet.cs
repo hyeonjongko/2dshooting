@@ -2,17 +2,35 @@
 
 public class Pet : MonoBehaviour
 {
-    ScoreManager _scoreManager;
+    Player player;
 
-    private int _count;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private GameObject _petPrefab;
+    private Transform _spawnPoint;
+
     void Start()
     {
+        player = GetComponent<Player>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
+        // Pet은 1000, 2000, 3000에만 반응
+        ScoreManager.OnScoreThousand += HandleScoreMilestone;
+    }
 
+    private void OnDisable()
+    {
+        ScoreManager.OnScoreThousand -= HandleScoreMilestone;
+    }
+
+    private void HandleScoreMilestone(int thousandCount)
+    {
+        SpawnPet();
+    }
+    private void SpawnPet()
+    {
+        GameObject PlayerObject = GameObject.FindWithTag("Player");
+        Vector3 spawnPosition = PlayerObject.transform.position;
+        Instantiate(_petPrefab, spawnPosition, Quaternion.identity);
     }
 }
