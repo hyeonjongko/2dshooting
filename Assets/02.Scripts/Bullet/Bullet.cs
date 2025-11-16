@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
         //{
         //    _time += Time.deltaTime;
 
-        //    _speed = Mathf.Lerp(StartSpeed, MaxSpeed, _time / Duration);
+        //    _speed = Mathf.Lerp(StartSpeed, MaxSpeed, _time / _duration);
         //    //_time / Duration을 하는 이유는
         //    //전체 구간 중 지금이 몇 퍼센트쯤 왔는지"를 계산해서,
         //    //그 비율에 따라 StartSpeed → MaxSpeed로 자연스럽게 보간하기 위해서입니다.
