@@ -237,10 +237,10 @@ public class PlayerMove : MonoBehaviour
         //float h = Input.GetAxis("Horizontal");    // 수평 입력에 대한 값을 -1 ~ 1로 가져온다
         //float v = Input.GetAxis("Vertical");      // 수직 입력에 대한 값을 -1 ~ 1로 가져온다
 
-        float h = joystick.Horizontal;
-        float v = joystick.Vertical;
-        //float h = Input.GetAxisRaw("Horizontal");
-        //float v = Input.GetAxisRaw("Vertical");
+        //float h = joystick.Horizontal;
+        //float v = joystick.Vertical;
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
 
 
         //GetAxisRaw : -1, 0, 1의 값을 반환
